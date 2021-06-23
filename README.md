@@ -1,4 +1,4 @@
-# miao-store
+# thb-vue
 
 ## Project setup
 ```
