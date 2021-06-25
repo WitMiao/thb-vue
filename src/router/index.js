@@ -1,6 +1,6 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-Vue.use(VueRouter)
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+Vue.use(VueRouter);
 
 const originPush = VueRouter.prototype.push;
 //修改原型的push,让原型的push指向另外一个函数
@@ -25,27 +25,33 @@ VueRouter.prototype.replace = function(location, onResolved, onRejected) {
     return originReplace.call(this, location, onResolved, onRejected);
   }
 };
-import Home from '@/pages/Home'
-import Lessons from '@/pages/Lessons'
-import Users from '@/pages/Users'
-import Works from '@/pages/Works'
-import Aboutus from '@/pages/Aboutus'
+import Home from '@/pages/Home';
+import Lessons from '@/pages/Lessons';
+import Users from '@/pages/Users';
+import Works from '@/pages/Works';
+import Aboutus from '@/pages/Aboutus';
 
 export default new VueRouter({
-    routes:[{
-        path:'/',
-        component:Home
-    },{
-        path:'/lessons',
-        component:Lessons
-    },{
-        path:'/users',
-        component:Users
-    },{
-        path:'/works',
-        component:Works
-    },{
-        path:'/aboutus',
-        component:Aboutus
-    }]
-})
+  routes: [
+    {
+      path: '/',
+      component: Home,
+    },
+    {
+      path: '/lessons',
+      component: Lessons,
+    },
+    {
+      path: '/users',
+      component: Users,
+    },
+    {
+      path: '/works',
+      component: Works,
+    },
+    {
+      path: '/aboutus',
+      component: Aboutus,
+    },
+  ],
+});

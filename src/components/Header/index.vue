@@ -30,8 +30,12 @@
                   <li class="drop">
                     <a href="/pythonide" target="_blank">python编辑器</a>
                   </li>
-                  <li class="drop"><router-link to="/works">作品展示</router-link></li>
-                  <li class="drop"><router-link to="/lessons">视频资源</router-link></li>
+                  <li class="drop">
+                    <router-link to="/works">作品展示</router-link>
+                  </li>
+                  <li class="drop">
+                    <router-link to="/lessons">视频资源</router-link>
+                  </li>
                   <li><router-link to="/aboutus">联系我们</router-link></li>
                 </ul>
               </nav>
@@ -63,7 +67,6 @@
               </li>
             </ul>
 
-           
             <!-- <div class="user-logined">
               <div class="dropdown">
                 <a
@@ -198,9 +201,8 @@
 
 <script>
 export default {
-  name: "Header",
+  name: 'Header',
 };
 </script>
 
-<style>
-</style>
+<style></style>
