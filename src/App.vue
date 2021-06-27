@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <el-container direction="vertical" ref="homepage">
+    <el-container direction="vertical" ref="homepage" :style="{height:$store.state.header.headHeight}">
       <el-header class="header">
         <Header></Header>
       </el-header>
@@ -37,17 +37,7 @@ export default {
   watch: {
     // 如果 `clientHeight` 发生改变，这个函数就会运行
     clientHeight: function() {
-      this.changeFixed(this.clientHeight);
-    },
-  },
-
-  methods: {
-    changeFixed(clientHeight) {
-      //动态修改样式
-      // console.log(clientHeight);
-      // console.log(this.$refs.homePage.$el.style.height);
-      console.log(this.$refs);
-      this.$refs.homePage.$el.style.height = clientHeight - 20 + 'px';
+      this.$store.commit('CHANGEFIXED',this.clientHeight)
     },
   },
 };

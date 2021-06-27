@@ -7,8 +7,10 @@
     text-color="#fff"
     active-text-color="#f5a700"
     class="header-nav-bar"
+    
   >
-    <img src="@/assets/img/logo/logo1.png" class="header-logo" />
+    <router-link to="/"><img src="@/assets/img/logo/logo1.png" class="header-logo" /></router-link>
+    
     <el-menu-item index="/">首页</el-menu-item>
     <el-menu-item index="/creation">创作平台</el-menu-item>
     <el-menu-item index="/pythonide">Python编辑器</el-menu-item>
