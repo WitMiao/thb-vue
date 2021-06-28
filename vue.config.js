@@ -1,5 +1,7 @@
 module.exports = {
-  lintOnSave: false, //禁用eslint
+  //禁用eslint
+  lintOnSave: false,
+
   css: {
     loaderOptions: {
       scss: {
@@ -7,5 +9,9 @@ module.exports = {
       },
       
     }
-  }
+  },
+
+  transpileDependencies: [
+    'vuetify'
+  ]
 };

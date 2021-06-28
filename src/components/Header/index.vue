@@ -1,24 +1,23 @@
 <template>
-  <el-menu
-    :default-active="activeIndex"
-    mode="horizontal"
-    :router="isRouter"
-    background-color="#0095e8"
-    text-color="#fff"
-    active-text-color="#f5a700"
-    class="header-nav-bar"
-    
-  >
-    <router-link to="/"><img src="@/assets/img/logo/logo1.png" class="header-logo" /></router-link>
-    
-    <el-menu-item index="/">首页</el-menu-item>
+  <v-app-bar app color="primary" dark>
+    <div class="d-flex align-center">
+      <v-img
+        alt="Vuetify Logo"
+        class="shrink mr-2"
+        contain
+        src="@/assets/img/logo/logo1.png"
+        transition="scale-transition"
+        width="170"
+      />
+    </div>
+  </v-app-bar>
+
+  <!-- <el-menu-item index="/">首页</el-menu-item>
     <el-menu-item index="/creation">创作平台</el-menu-item>
     <el-menu-item index="/pythonide">Python编辑器</el-menu-item>
     <el-menu-item index="/works">作品展示</el-menu-item>
     <el-menu-item index="/lessons">视频资源</el-menu-item>
-    <el-menu-item index="/aboutus">联系我们</el-menu-item>
-    <div class="header-bottom-line"></div>
-  </el-menu>
+    <el-menu-item index="/aboutus">联系我们</el-menu-item> -->
 </template>
 
 <script>
@@ -30,13 +29,13 @@ export default {
       isRouter: true,
     };
   },
-  
 };
 </script>
 
 <style lang="scss" scoped>
 .header-logo {
   max-width: 170px;
+  float: left;
 }
 
 .header-nav-bar {
