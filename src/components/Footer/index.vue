@@ -1,5 +1,5 @@
 <template>
-  <el-footer></el-footer>
+  <v-footer></v-footer>
 </template>
 
 <script>

@@ -1,6 +1,6 @@
 <template>
 
-  <el-main class="wrapper" id="wrapper">
+  <div class="wrapper" id="wrapper">
     <!-- Strat Slider Area -->
     <div class="slide__carosel owl-carousel owl-theme">
       <div
@@ -746,7 +746,7 @@
       </div>
     </section>
     <!-- End Testimonial Area -->
-  </el-main>
+  </div>
 </template>
 
 <script>

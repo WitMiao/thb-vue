@@ -1,16 +1,17 @@
 <template>
   <v-app>
-    <Header />
-    <v-main>
-      <router-view />
+    <Header/>
+    <v-main class="mt-4">
+      <router-view/>
     </v-main>
-    <Footer />
+    <Footer/>
   </v-app>
 </template>
 
 <script>
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+
 export default {
   name: 'App',
   components: {

@@ -1,20 +1,14 @@
-const state = {
-  headHeight: '',
-};
+const state = {};
 
-const mutations = {
-  CHANGEFIXED(state, clientHeight) {
-    state.headHeight = clientHeight - 20 + 'px';
-  },
-};
+const mutations = {};
 
 const actions = {};
 
 const getters = {};
 
 export default {
-  state,
-  mutations,
-  actions,
-  getters,
+    state,
+    mutations,
+    actions,
+    getters,
 };
