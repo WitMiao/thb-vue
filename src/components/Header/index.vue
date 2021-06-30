@@ -4,7 +4,7 @@
       <v-col class="d-flex justify-space-around">
         <router-link to="/">
           <v-img
-            alt="Vuetify Logo"
+            alt="THB Logo"
             class="shrink mr-10"
             contain
             src="@/assets/img/logo/logo1.png"
@@ -27,9 +27,12 @@
       </v-col>
       <v-col class="d-flex justify-space-around">
         <v-toolbar-items>
-          <v-btn text rounded class="text-subtitle-1">登录</v-btn>
-          <v-btn text disabled>/</v-btn>
-          <v-btn text rounded class="text-subtitle-1">注册</v-btn>
+          <v-dialog v-model="loginDialog" persistent transition="dialog-top-transition" width="320">
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn text rounded class="text-subtitle-1" v-bind="attrs" v-on="on">登录 / 注册</v-btn>
+            </template>
+            <Login />
+          </v-dialog>
           <v-menu bottom min-width="200px" rounded offset-y>
             <template v-slot:activator="{ on }">
               <v-btn icon x-large v-on="on">
@@ -77,8 +80,12 @@
 </template>
 
 <script>
+import Login from '@/components/Login';
 export default {
   name: 'Header',
+  components: {
+    Login,
+  },
   data() {
     return {
       activeIndex: '/',
@@ -93,6 +100,16 @@ export default {
         { text: '联系我们', link: '/aboutus' },
       ],
     };
+  },
+  computed: {
+    loginDialog: {
+      set(value) {
+        this.$store.commit('SETLOGINDIALOG', value);
+      },
+      get() {
+        return this.$store.state.header.loginDialog;
+      },
+    },
   },
 };
 </script>
