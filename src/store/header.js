@@ -3,6 +3,9 @@ const state = {
 };
 
 const mutations = {
+  OPENLOGINDIALOG(state) {
+    state.loginDialog = true;
+  },
   CLOSELOGINDIALOG(state) {
     state.loginDialog = false;
   },

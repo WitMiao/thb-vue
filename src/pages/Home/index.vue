@@ -1,6 +1,7 @@
 <template>
 
   <div class="wrapper" id="wrapper">
+    <v-btn @click="testLogin">登录测试</v-btn>
     <!-- Strat Slider Area -->
     <div class="slide__carosel owl-carousel owl-theme">
       <div
@@ -752,6 +753,11 @@
 <script>
 export default {
   name: 'Home',
+  methods:{
+    testLogin(){
+      this.$store.commit('OPENLOGINDIALOG');
+    }
+  }
 };
 </script>
 
