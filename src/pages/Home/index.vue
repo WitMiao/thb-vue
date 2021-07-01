@@ -1,7 +1,7 @@
 <template>
 
   <div class="wrapper" id="wrapper">
-    <v-btn @click="testLogin">登录测试</v-btn>
+    <v-btn @click="testLogin">注册测试</v-btn>
     <!-- Strat Slider Area -->
     <div class="slide__carosel owl-carousel owl-theme">
       <div
@@ -756,6 +756,8 @@ export default {
   methods:{
     testLogin(){
       this.$store.commit('OPENLOGINDIALOG');
+      this.$store.commit('OPENREGISTERDIALOG');
+
     }
   }
 };
