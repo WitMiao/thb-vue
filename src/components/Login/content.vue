@@ -12,25 +12,22 @@
       </v-col>
     </v-card-title>
     <v-card-text v-if="showMod.isLogin" class="d-flex justify-center">
-      <div
-        class="login-animate"
-        :class="{ 'username-animate': loginBear.isUserName, 'password-animate': loginBear.isPassword }"
-      >
+      <div class="login-animate" :class="{ 'username-animate': isUserNameFocus, 'password-animate': isPasswordFocus }">
         <div class="head">
-          <div class="skin"></div>
-          <div class="left-eye" :class="{ show: loginBear.leftEye.isShow }"></div>
-          <div class="right-eye" :class="{ show: loginBear.rightEye.isShow }"></div>
+          <div class="skin" :style="{ left: -0.7 + getPosition + 'em' }"></div>
+          <div class="left-eye" :class="{ doe: isDoe }" :style="{ left: 0.5 + getPosition + 'em' }"></div>
+          <div class="right-eye" :class="{ doe: isDoe }" :style="{ left: 4 + getPosition + 'em' }"></div>
           <div class="mask"></div>
-          <div class="face">
+          <div class="face" :style="{ left: -0 + getPosition + 'em' }">
             <div class="nose"></div>
-            <div class="mouth" :class="{ show: loginBear.mouth.isShow, doe: loginBear.mouth.isDoe }"></div>
+            <div class="mouth" :class="{ show: isPwdShow, doe: isDoe }"></div>
           </div>
         </div>
         <div class="body"></div>
-        <div class="left-ear"></div>
-        <div class="right-ear"></div>
-        <div class="left-arm" :class="{ show: loginBear.leftArm.isShow }"></div>
-        <div class="right-arm" :class="{ show: loginBear.rightArm.isShow }"></div>
+        <div class="left-ear" :style="{ left: 1.8 + getPosition + 'em' }"></div>
+        <div class="right-ear" :style="{ left: 7.3 + getPosition + 'em' }"></div>
+        <div class="left-arm" :class="{ show: isPwdShow }"></div>
+        <div class="right-arm" :class="{ show: isPwdShow }"></div>
       </div>
     </v-card-text>
     <v-card-text class="pb-0 text-h4 d-flex justify-center mb-4 white--text" v-else>
@@ -49,8 +46,9 @@
         background-color="white"
         class="rounded ma-0 py-0 px-15"
         @click:append="item.pwdShow = !item.pwdShow"
-        @blur="!showMod.isLogin ? '' : item.isText ? (loginBear.isUserName = false) : (loginBear.isPassword = false)"
-        @focus="!showMod.isLogin ? '' : item.isText ? (loginBear.isUserName = true) : (loginBear.isPassword = true)"
+        @blur="item.isFocus = false"
+        @focus="item.isFocus = true"
+        v-model="item.val"
       ></v-text-field>
     </v-form>
     <v-card-actions class="justify-center pb-0">
@@ -80,12 +78,15 @@ export default {
             label: '账号',
             placeholder: '请输入账号',
             isText: true,
+            isFocus: false,
+            val: '',
           },
           {
             label: '密码',
             placeholder: '请输入密码(不少于6位)',
             isText: false,
             pwdShow: false,
+            isFocus: false,
           },
         ],
         btnStr: '立即登录',
@@ -105,26 +106,6 @@ export default {
         spanStr: '已有账号？',
         toggleBtnStr: '立即登录',
       },
-      loginBear: {
-        isUserName: false,
-        isPassword: false,
-        leftArm: {
-          isShow: false,
-        },
-        rightArm: {
-          isShow: false,
-        },
-        mouth: {
-          isShow: false,
-          isDoe: false,
-        },
-        leftEye: {
-          isDoe: false,
-        },
-        rightEye: {
-          isDoe: false,
-        },
-      },
     };
   },
   computed: {
@@ -133,6 +114,23 @@ export default {
     }),
     showMod() {
       return this.registerDialog ? this.registerMod : this.loginMod;
+    },
+    isPwdShow() {
+      return this.loginMod.form[1].pwdShow;
+    },
+    isUserNameFocus() {
+      return this.loginMod.form[0].isFocus;
+    },
+    isPasswordFocus() {
+      return this.loginMod.form[1].isFocus;
+    },
+    isDoe() {
+      return this.loginMod.form[0].val.length >= 6;
+    },
+    getPosition() {
+      const { length } = this.loginMod.form[0].val;
+      const leftLength = parseFloat((0.8 / 20) * length);
+      return leftLength > 1 ? 1 : leftLength;
     },
   },
   methods: {
