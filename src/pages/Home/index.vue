@@ -1,5 +1,4 @@
 <template>
-
   <div class="wrapper" id="wrapper">
     <v-btn @click="testLogin">注册测试</v-btn>
     <!-- Strat Slider Area -->
@@ -48,8 +47,7 @@
             <div class="section__title text-center">
               <h2 class="title__line">欢迎来到特慧编</h2>
               <p>
-                特慧编俱乐部更注重引导孩子主动思考，
-                不仅要教会孩子编程知识，还要教会孩子如何竞争与合作。
+                特慧编俱乐部更注重引导孩子主动思考， 不仅要教会孩子编程知识，还要教会孩子如何竞争与合作。
               </p>
             </div>
           </div>
@@ -57,9 +55,7 @@
         <div class="row jn__welcome__wrapper align-items-center">
           <div class="col-md-12 col-lg-6 col-sm-12">
             <div class="welcome__juniro__inner">
-              <h3>
-                欢迎<span class="theme-color">加入</span><span>我们</span>~
-              </h3>
+              <h3>欢迎<span class="theme-color">加入</span><span>我们</span>~</h3>
               <p class="wow flipInX">
                 我们的教师来自于一线IT企业，不仅拥有多年IT行业经验，了解行业发展现状，
                 有的还拥有多年海外工作经验，可以更好地带领学员开阔视野，掌握真知。
@@ -73,11 +69,7 @@
             <div class="jnr__Welcome__thumb wow fadeInRight">
               <img src="/index/images/wel-come/1.png" alt="images" />
               <div class="video-btn-block">
-                <a
-                  class="play__btn"
-                  href=""
-                  data-toggle="modal"
-                  data-target="#video-modal"
+                <a class="play__btn" href="" data-toggle="modal" data-target="#video-modal"
                   ><i class="fa fa-play"></i
                 ></a>
               </div>
@@ -92,25 +84,13 @@
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <button
-                        type="button"
-                        class="close"
-                        data-dismiss="modal"
-                        aria-hidden="true"
-                      >
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                         ×
                       </button>
                     </div>
                     <div class="modal-body">
-                      <div
-                        style="text-align: center"
-                        class="embed-responsive embed-responsive-16by9"
-                      >
-                        <video
-                          id="video-source"
-                          controls
-                          class="embed-responsive-item"
-                        >
+                      <div style="text-align: center" class="embed-responsive embed-responsive-16by9">
+                        <video id="video-source" controls class="embed-responsive-item">
                           <source src="" type="video/mp4" />
                           你的游览器不支持此视频播放
                         </video>
@@ -189,19 +169,14 @@
             <div class="gallery wow fadeInUp">
               <div class="gallery__thumb">
                 <a href="/works/content/1/<%- showlist[i]._id %>">
-                  <img
-                    src="/released/covers/<%- showlist[i].covers%>"
-                    alt="<%- showlist[i].title %>"
-                  />
+                  <img src="/released/covers/<%- showlist[i].covers%>" alt="<%- showlist[i].title %>" />
                 </a>
               </div>
               <div class="gallery__hover__inner">
                 <div class="gallery__hover__action">
                   <ul class="gallery__zoom">
                     <li>
-                      <a href="/works/content/1/<%- showlist[i]._id %>"
-                        ><i class="fa fa-link"></i
-                      ></a>
+                      <a href="/works/content/1/<%- showlist[i]._id %>"><i class="fa fa-link"></i></a>
                     </li>
                   </ul>
                   <h4 class="gallery__title"><a></a></h4>
@@ -228,10 +203,7 @@
                   <div class="testimonial text-center">
                     <div class="testimonial__inner">
                       <div class="test__icon">
-                        <img
-                          src="/index/images/testimonial/icon/1.png"
-                          alt="icon images"
-                        />
+                        <img src="/index/images/testimonial/icon/1.png" alt="icon images" />
                       </div>
                       <div class="client__details">
                         <p></p>
@@ -251,7 +223,7 @@
       </div>
     </section>
     <!-- End Testimonial Area -->
-     <div class="slide__carosel owl-carousel owl-theme">
+    <div class="slide__carosel owl-carousel owl-theme">
       <div
         class="
           slider__area
@@ -296,8 +268,7 @@
             <div class="section__title text-center">
               <h2 class="title__line">欢迎来到特慧编</h2>
               <p>
-                特慧编俱乐部更注重引导孩子主动思考，
-                不仅要教会孩子编程知识，还要教会孩子如何竞争与合作。
+                特慧编俱乐部更注重引导孩子主动思考， 不仅要教会孩子编程知识，还要教会孩子如何竞争与合作。
               </p>
             </div>
           </div>
@@ -305,9 +276,7 @@
         <div class="row jn__welcome__wrapper align-items-center">
           <div class="col-md-12 col-lg-6 col-sm-12">
             <div class="welcome__juniro__inner">
-              <h3>
-                欢迎<span class="theme-color">加入</span><span>我们</span>~
-              </h3>
+              <h3>欢迎<span class="theme-color">加入</span><span>我们</span>~</h3>
               <p class="wow flipInX">
                 我们的教师来自于一线IT企业，不仅拥有多年IT行业经验，了解行业发展现状，
                 有的还拥有多年海外工作经验，可以更好地带领学员开阔视野，掌握真知。
@@ -321,11 +290,7 @@
             <div class="jnr__Welcome__thumb wow fadeInRight">
               <img src="/index/images/wel-come/1.png" alt="images" />
               <div class="video-btn-block">
-                <a
-                  class="play__btn"
-                  href=""
-                  data-toggle="modal"
-                  data-target="#video-modal"
+                <a class="play__btn" href="" data-toggle="modal" data-target="#video-modal"
                   ><i class="fa fa-play"></i
                 ></a>
               </div>
@@ -340,25 +305,13 @@
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <button
-                        type="button"
-                        class="close"
-                        data-dismiss="modal"
-                        aria-hidden="true"
-                      >
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                         ×
                       </button>
                     </div>
                     <div class="modal-body">
-                      <div
-                        style="text-align: center"
-                        class="embed-responsive embed-responsive-16by9"
-                      >
-                        <video
-                          id="video-source"
-                          controls
-                          class="embed-responsive-item"
-                        >
+                      <div style="text-align: center" class="embed-responsive embed-responsive-16by9">
+                        <video id="video-source" controls class="embed-responsive-item">
                           <source src="" type="video/mp4" />
                           你的游览器不支持此视频播放
                         </video>
@@ -437,19 +390,14 @@
             <div class="gallery wow fadeInUp">
               <div class="gallery__thumb">
                 <a href="/works/content/1/<%- showlist[i]._id %>">
-                  <img
-                    src="/released/covers/<%- showlist[i].covers%>"
-                    alt="<%- showlist[i].title %>"
-                  />
+                  <img src="/released/covers/<%- showlist[i].covers%>" alt="<%- showlist[i].title %>" />
                 </a>
               </div>
               <div class="gallery__hover__inner">
                 <div class="gallery__hover__action">
                   <ul class="gallery__zoom">
                     <li>
-                      <a href="/works/content/1/<%- showlist[i]._id %>"
-                        ><i class="fa fa-link"></i
-                      ></a>
+                      <a href="/works/content/1/<%- showlist[i]._id %>"><i class="fa fa-link"></i></a>
                     </li>
                   </ul>
                   <h4 class="gallery__title"><a></a></h4>
@@ -476,10 +424,7 @@
                   <div class="testimonial text-center">
                     <div class="testimonial__inner">
                       <div class="test__icon">
-                        <img
-                          src="/index/images/testimonial/icon/1.png"
-                          alt="icon images"
-                        />
+                        <img src="/index/images/testimonial/icon/1.png" alt="icon images" />
                       </div>
                       <div class="client__details">
                         <p></p>
@@ -499,7 +444,7 @@
       </div>
     </section>
     <!-- End Testimonial Area -->
-     <div class="slide__carosel owl-carousel owl-theme">
+    <div class="slide__carosel owl-carousel owl-theme">
       <div
         class="
           slider__area
@@ -544,8 +489,7 @@
             <div class="section__title text-center">
               <h2 class="title__line">欢迎来到特慧编</h2>
               <p>
-                特慧编俱乐部更注重引导孩子主动思考，
-                不仅要教会孩子编程知识，还要教会孩子如何竞争与合作。
+                特慧编俱乐部更注重引导孩子主动思考， 不仅要教会孩子编程知识，还要教会孩子如何竞争与合作。
               </p>
             </div>
           </div>
@@ -553,9 +497,7 @@
         <div class="row jn__welcome__wrapper align-items-center">
           <div class="col-md-12 col-lg-6 col-sm-12">
             <div class="welcome__juniro__inner">
-              <h3>
-                欢迎<span class="theme-color">加入</span><span>我们</span>~
-              </h3>
+              <h3>欢迎<span class="theme-color">加入</span><span>我们</span>~</h3>
               <p class="wow flipInX">
                 我们的教师来自于一线IT企业，不仅拥有多年IT行业经验，了解行业发展现状，
                 有的还拥有多年海外工作经验，可以更好地带领学员开阔视野，掌握真知。
@@ -569,11 +511,7 @@
             <div class="jnr__Welcome__thumb wow fadeInRight">
               <img src="/index/images/wel-come/1.png" alt="images" />
               <div class="video-btn-block">
-                <a
-                  class="play__btn"
-                  href=""
-                  data-toggle="modal"
-                  data-target="#video-modal"
+                <a class="play__btn" href="" data-toggle="modal" data-target="#video-modal"
                   ><i class="fa fa-play"></i
                 ></a>
               </div>
@@ -588,25 +526,13 @@
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <button
-                        type="button"
-                        class="close"
-                        data-dismiss="modal"
-                        aria-hidden="true"
-                      >
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                         ×
                       </button>
                     </div>
                     <div class="modal-body">
-                      <div
-                        style="text-align: center"
-                        class="embed-responsive embed-responsive-16by9"
-                      >
-                        <video
-                          id="video-source"
-                          controls
-                          class="embed-responsive-item"
-                        >
+                      <div style="text-align: center" class="embed-responsive embed-responsive-16by9">
+                        <video id="video-source" controls class="embed-responsive-item">
                           <source src="" type="video/mp4" />
                           你的游览器不支持此视频播放
                         </video>
@@ -685,19 +611,14 @@
             <div class="gallery wow fadeInUp">
               <div class="gallery__thumb">
                 <a href="/works/content/1/<%- showlist[i]._id %>">
-                  <img
-                    src="/released/covers/<%- showlist[i].covers%>"
-                    alt="<%- showlist[i].title %>"
-                  />
+                  <img src="/released/covers/<%- showlist[i].covers%>" alt="<%- showlist[i].title %>" />
                 </a>
               </div>
               <div class="gallery__hover__inner">
                 <div class="gallery__hover__action">
                   <ul class="gallery__zoom">
                     <li>
-                      <a href="/works/content/1/<%- showlist[i]._id %>"
-                        ><i class="fa fa-link"></i
-                      ></a>
+                      <a href="/works/content/1/<%- showlist[i]._id %>"><i class="fa fa-link"></i></a>
                     </li>
                   </ul>
                   <h4 class="gallery__title"><a></a></h4>
@@ -724,10 +645,7 @@
                   <div class="testimonial text-center">
                     <div class="testimonial__inner">
                       <div class="test__icon">
-                        <img
-                          src="/index/images/testimonial/icon/1.png"
-                          alt="icon images"
-                        />
+                        <img src="/index/images/testimonial/icon/1.png" alt="icon images" />
                       </div>
                       <div class="client__details">
                         <p></p>
@@ -753,13 +671,12 @@
 <script>
 export default {
   name: 'Home',
-  methods:{
-    testLogin(){
+  methods: {
+    testLogin() {
       this.$store.commit('OPENLOGINDIALOG');
       this.$store.commit('OPENREGISTERDIALOG');
-
-    }
-  }
+    },
+  },
 };
 </script>
 

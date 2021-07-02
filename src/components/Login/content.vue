@@ -11,11 +11,31 @@
         </v-btn>
       </v-col>
     </v-card-title>
-    <v-col>
-      <v-input class="pb-0 text-h4" color="#cefefb" v-if="!showMod.isLogin">
-        {{ showMod.title }}
-      </v-input>
-    </v-col>
+    <v-card-text v-if="showMod.isLogin" class="d-flex justify-center">
+      <div
+        class="login-animate"
+        :class="{ 'username-animate': loginBear.isUserName, 'password-animate': loginBear.isPassword }"
+      >
+        <div class="head">
+          <div class="skin"></div>
+          <div class="left-eye" :class="{ show: loginBear.leftEye.isShow }"></div>
+          <div class="right-eye" :class="{ show: loginBear.rightEye.isShow }"></div>
+          <div class="mask"></div>
+          <div class="face">
+            <div class="nose"></div>
+            <div class="mouth" :class="{ show: loginBear.mouth.isShow, doe: loginBear.mouth.isDoe }"></div>
+          </div>
+        </div>
+        <div class="body"></div>
+        <div class="left-ear"></div>
+        <div class="right-ear"></div>
+        <div class="left-arm" :class="{ show: loginBear.leftArm.isShow }"></div>
+        <div class="right-arm" :class="{ show: loginBear.rightArm.isShow }"></div>
+      </div>
+    </v-card-text>
+    <v-card-text class="pb-0 text-h4 d-flex justify-center mb-4 white--text" v-else>
+      {{ showMod.title }}
+    </v-card-text>
 
     <v-form>
       <v-text-field
@@ -29,6 +49,8 @@
         background-color="white"
         class="rounded ma-0 py-0 px-15"
         @click:append="item.pwdShow = !item.pwdShow"
+        @blur="!showMod.isLogin ? '' : item.isText ? (loginBear.isUserName = false) : (loginBear.isPassword = false)"
+        @focus="!showMod.isLogin ? '' : item.isText ? (loginBear.isUserName = true) : (loginBear.isPassword = true)"
       ></v-text-field>
     </v-form>
     <v-card-actions class="justify-center pb-0">
@@ -54,8 +76,17 @@ export default {
       loginMod: {
         isLogin: true,
         form: [
-          { label: '账号', placeholder: '请输入账号', isText: true },
-          { label: '密码', placeholder: '请输入密码(不少于6位)', isText: false, pwdShow: false },
+          {
+            label: '账号',
+            placeholder: '请输入账号',
+            isText: true,
+          },
+          {
+            label: '密码',
+            placeholder: '请输入密码(不少于6位)',
+            isText: false,
+            pwdShow: false,
+          },
         ],
         btnStr: '立即登录',
         spanStr: '没有账号？',
@@ -73,6 +104,26 @@ export default {
         btnStr: '立即注册',
         spanStr: '已有账号？',
         toggleBtnStr: '立即登录',
+      },
+      loginBear: {
+        isUserName: false,
+        isPassword: false,
+        leftArm: {
+          isShow: false,
+        },
+        rightArm: {
+          isShow: false,
+        },
+        mouth: {
+          isShow: false,
+          isDoe: false,
+        },
+        leftEye: {
+          isDoe: false,
+        },
+        rightEye: {
+          isDoe: false,
+        },
       },
     };
   },
@@ -107,4 +158,218 @@ export default {
 };
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+.login-animate {
+  width: 10em;
+  height: 10em;
+  border-radius: 5em;
+  background: #cefefb;
+  position: relative;
+  overflow: hidden;
+  div {
+    transition: all 0.5s;
+    -o-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    -webkit-transition: all 0.5s;
+  }
+  .body {
+    background-image: url(../../assets/img/loginBear/body.png);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 10em;
+    height: 14em;
+    position: absolute;
+    bottom: -3.5em;
+    left: calc(50% - 5.2em);
+    z-index: 0;
+  }
+  .mask {
+    background-image: url(../../assets/img/loginBear/mask.png);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 10em;
+    height: 8.3em;
+    position: absolute;
+    bottom: -1.5em;
+    left: calc(50% - 5.2em);
+    z-index: 0;
+  }
+  .head {
+    background-image: url(../../assets/img/loginBear/face.png);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 6.8em;
+    height: 6.3em;
+    position: absolute;
+    bottom: 2.2em;
+    left: calc(50% - 3.4em);
+    z-index: 1;
+  }
+  .left-ear {
+    background-image: url(../../assets/img/loginBear/left-ear.png);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 2em;
+    height: 2em;
+    position: absolute;
+    bottom: 6em;
+    left: calc(50% - 3.8em);
+  }
+  .right-ear {
+    background-image: url(../../assets/img/loginBear/right-ear.png);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 2em;
+    height: 2em;
+    position: absolute;
+    bottom: 6em;
+    left: calc(50% + 2em);
+  }
+  .left-eye {
+    background-image: url(../../assets/img/loginBear/left-eye.png);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 1.6em;
+    height: 2.4em;
+    position: absolute;
+    bottom: 2.8em;
+    left: calc(50% - 2.5em);
+  }
+  .right-eye {
+    background-image: url(../../assets/img/loginBear/right-eye.png);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 1.6em;
+    height: 2.4em;
+    position: absolute;
+    bottom: 2.8em;
+    left: calc(50% + 0.9em);
+  }
+  .face {
+    background-image: url(../../assets/img/loginBear/muzzle.png);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 6.5em;
+    height: 2.8em;
+    position: absolute;
+    bottom: 0.5em;
+    left: calc(50% - 3.3em);
+  }
+  .skin {
+    background-image: url(../../assets/img/loginBear/skin.png);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 8em;
+    height: 3em;
+    position: absolute;
+    bottom: -0.1em;
+    left: calc(50% - 4em);
+  }
+  .nose {
+    background-image: url(../../assets/img/loginBear/nose.png);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 1.3em;
+    height: 1.1em;
+    position: absolute;
+    bottom: 1.6em;
+    left: calc(50% - 0.5em);
+  }
+  .mouth {
+    background-image: url(../../assets/img/loginBear/mouth-smile.png);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 2.8em;
+    height: 2.7em;
+    position: absolute;
+    top: 0.2em;
+    left: calc(50% - 1.35em);
+  }
+  .left-arm {
+    background-image: url(../../assets/img/loginBear/left-arm.png);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 3.5em;
+    height: 7.2em;
+    position: absolute;
+    bottom: -7.5em;
+    left: 1em;
+    z-index: 2;
+    transition: bottom 0.5s;
+  }
+  .right-arm {
+    background-image: url(../../assets/img/loginBear/right-arm.png);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 3.5em;
+    height: 7.2em;
+    position: absolute;
+    bottom: -7.5em;
+    left: 5.5em;
+    z-index: 2;
+    transition: bottom 0.5s;
+  }
+}
+.password-animate {
+  .mouth.show {
+    background-image: url(../../assets/img/loginBear/mouth-circle.png);
+  }
+  .left-arm.show {
+    bottom: -2em !important;
+  }
+  .right-arm.show {
+    bottom: -2em !important;
+  }
+  .left-arm {
+    bottom: 0.2em;
+  }
+  .right-arm {
+    bottom: 0.2em;
+  }
+}
+.username-animate {
+  .left-eye {
+    left: 0.5em;
+    bottom: 2.3em;
+  }
+  .left-eye.doe {
+    background-image: url(../../assets/img/loginBear/left-eye-doe.png);
+  }
+  .right-eye.doe {
+    background-image: url(../../assets/img/loginBear/right-eye-doe.png);
+  }
+  .right-eye {
+    left: 4em;
+    bottom: 2.3em;
+  }
+  .face {
+    bottom: 0em;
+  }
+  .skin {
+    bottom: -0.6em;
+  }
+  .nose {
+    left: 2.3em;
+  }
+  .mouth {
+    left: 1.5em;
+    background-image: url(../../assets/img/loginBear/mouth-half.png);
+  }
+  .mouth.doe {
+    background-image: url(../../assets/img/loginBear/mouth-open.png);
+  }
+}
+</style>
