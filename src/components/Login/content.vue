@@ -14,18 +14,18 @@
     <v-card-text v-if="showMod.isLogin" class="d-flex justify-center">
       <div class="login-animate" :class="{ 'username-animate': isUserNameFocus, 'password-animate': isPasswordFocus }">
         <div class="head">
-          <div class="skin" :style="{ left: -0.7 + getPosition + 'em' }"></div>
-          <div class="left-eye" :class="{ doe: isDoe }" :style="{ left: 0.5 + getPosition + 'em' }"></div>
-          <div class="right-eye" :class="{ doe: isDoe }" :style="{ left: 4 + getPosition + 'em' }"></div>
+          <div class="skin" :style="{ left: getPosition(-0.7, 1) }"></div>
+          <div class="left-eye" :class="{ doe: isDoe }" :style="{ left: getPosition(0.5, 1) }"></div>
+          <div class="right-eye" :class="{ doe: isDoe }" :style="{ left: getPosition(4, 1) }"></div>
           <div class="mask"></div>
-          <div class="face" :style="{ left: -0 + getPosition + 'em' }">
+          <div class="face" :style="{ left: getPosition(0, 1) }">
             <div class="nose"></div>
             <div class="mouth" :class="{ show: isPwdShow, doe: isDoe }"></div>
           </div>
         </div>
         <div class="body"></div>
-        <div class="left-ear" :style="{ left: 1.8 + getPosition + 'em' }"></div>
-        <div class="right-ear" :style="{ left: 7.3 + getPosition + 'em' }"></div>
+        <div class="left-ear" :style="{ left: getPosition(1.8, -1) }"></div>
+        <div class="right-ear" :style="{ left: getPosition(7.3, -1) }"></div>
         <div class="left-arm" :class="{ show: isPwdShow }"></div>
         <div class="right-arm" :class="{ show: isPwdShow }"></div>
       </div>
@@ -127,13 +127,16 @@ export default {
     isDoe() {
       return this.loginMod.form[0].val.length >= 6;
     },
-    getPosition() {
+    leftLength() {
       const { length } = this.loginMod.form[0].val;
       const leftLength = parseFloat((0.8 / 20) * length);
       return leftLength > 1 ? 1 : leftLength;
     },
   },
   methods: {
+    getPosition(init, plusOrMinus) {
+      return this.isUserNameFocus ? init + plusOrMinus * this.leftLength + 'em' : '';
+    },
     closeLoginDialog() {
       this.$store.commit('CLOSELOGINDIALOG');
     },
