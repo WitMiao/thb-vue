@@ -52,7 +52,7 @@
       ></v-text-field>
     </v-form>
     <v-card-actions class="justify-center pb-0">
-      <v-btn color="warning" large @click="showMod.isLogin ? login() : register()" width="320">
+      <v-btn color="warning" large @click="showMod.isLogin ? login() : register()" width="75%">
         <span class="text-h6 font-weight-black">{{ showMod.btnStr }}</span>
       </v-btn>
     </v-card-actions>
