@@ -3,7 +3,9 @@ import router from '@/router';
 import store from '@/store';
 import App from '@/App';
 import vuetify from './plugins/vuetify';
+import VueCoreVideoPlayer from 'vue-core-video-player';
 
+Vue.use(VueCoreVideoPlayer);
 Vue.config.productionTip = false;
 
 new Vue({
