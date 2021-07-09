@@ -1,5 +1,6 @@
 <template>
   <v-app-bar app color="#2595e7" dark>
+    <v-app-bar-nav-icon class="d-flex d-lg-none" @click="navListExpand = !navListExpand"></v-app-bar-nav-icon>
     <v-row>
       <v-col class="d-flex justify-space-around">
         <router-link to="/">
@@ -32,6 +33,31 @@
         </v-toolbar-items>
       </v-col>
     </v-row>
+    <v-row>
+      <v-col class="d-flex">
+        <v-expand-transition>
+          <v-card class="mx-auto" max-width="400" tile v-show="navListExpand">
+            <v-list-item>
+              <v-list-item-content>
+                <v-list-item-title>Single-line item</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+
+            <v-list-item two-line>
+              <v-list-item-content>
+                <v-list-item-title>Two-line item</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+
+            <v-list-item three-line>
+              <v-list-item-content>
+                <v-list-item-title>Three-line item</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </v-card>
+        </v-expand-transition>
+      </v-col>
+    </v-row>
 
     <div class="header-bottom-line"></div>
   </v-app-bar>
@@ -59,6 +85,7 @@ export default {
         { text: '视频资源', link: '/lessons' },
         { text: '联系我们', link: '/aboutus' },
       ],
+      navListExpand: false,
     };
   },
 };
