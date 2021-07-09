@@ -14,7 +14,7 @@
           />
         </router-link>
       </v-col>
-      <v-col class="d-flex justify-space-around align-center">
+      <v-col class="d-none d-lg-flex justify-space-around align-center">
         <v-btn
           text
           rounded

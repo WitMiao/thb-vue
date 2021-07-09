@@ -96,7 +96,7 @@
                 src="@/assets/img/home/video-bg.png"
                 max-width="514"
                 max-height="464"
-                class="align-center text-align-center"
+                class="d-flex align-center text-center"
               >
                 <v-dialog v-model="videoDialog" width="500">
                   <template v-slot:activator="{ on, attrs }">
@@ -177,16 +177,15 @@
           <v-container
             class="d-flex flex-column justify-center align-center home-page-comment"
             v-if="comment.isShowText"
+            px-12
           >
-            <div>
               <div class="my-1">
                 <span class="text-h5 white--text">{{ comment.text1 }}</span>
               </div>
-              <span class="white--text">{{ comment.text2 }}</span>
+              <span class="white--text font-weight-bold">{{ comment.text2 }}</span>
               <div class="my-1">
                 <span class="white--text">{{ comment.text3 }}</span>
               </div>
-            </div>
           </v-container>
         </v-carousel-item>
       </v-carousel>
