@@ -5,7 +5,9 @@ import App from '@/App';
 import vuetify from './plugins/vuetify';
 import VueCoreVideoPlayer from 'vue-core-video-player';
 
-Vue.use(VueCoreVideoPlayer);
+Vue.use(VueCoreVideoPlayer, {
+  lang: 'zh-CN'
+});
 Vue.config.productionTip = false;
 
 new Vue({

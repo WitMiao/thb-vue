@@ -1,11 +1,11 @@
 <template>
   <v-footer class="pa-0">
     <div class="miao-container">
-      <v-row class="py-8">
+      <v-row class="pa-8">
         <v-col
           v-for="(contact, index) in contactList"
           :key="index"
-          class="d-flex justify-center col-12 col-sm-6 col-md-3"
+          class="d-flex col-12 col-sm-6 col-md-3"
         >
           <v-img
             src="@/assets/img/home/star-bg.png"

@@ -98,14 +98,14 @@
                 max-height="464"
                 class="d-flex align-center text-center"
               >
-                <v-dialog v-model="videoDialog" width="500">
+                <v-dialog v-model="videoDialog" width="500" @click:outside="closeVideo">
                   <template v-slot:activator="{ on, attrs }">
                     <v-btn color="white" fab v-bind="attrs" v-on="on">
                       <v-icon color="orange" x-large>mdi-play</v-icon>
                     </v-btn>
                   </template>
                   <v-card>
-                    <vue-core-video-player :src="videoSrc"></vue-core-video-player>
+                    <vue-core-video-player :src="videoSrc" ref="thbVideo"></vue-core-video-player>
                   </v-card>
                 </v-dialog>
               </v-img>
@@ -250,6 +250,9 @@ export default {
     openRegisterDialog() {
       this.$store.dispatch('firstOpenRegisterDialog');
     },
+    closeVideo(){
+      this.$refs.thbVideo.pause();
+    }
   },
 };
 </script>
