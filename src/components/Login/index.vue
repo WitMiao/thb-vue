@@ -1,9 +1,11 @@
 <template>
   <v-dialog v-model="loginDialog" persistent transition="dialog-top-transition" width="440">
     <template v-slot:activator="{ on, attrs }">
-      <v-btn text rounded class="text-subtitle-1" @click="firstOpenRegisterDialog">注册</v-btn>
-      <v-input class="align-self-end">/</v-input>
-      <v-btn text rounded class="text-subtitle-1" v-bind="attrs" v-on="on">登录</v-btn>
+      <v-btn text rounded class="d-none d-lg-flex text-subtitle-1" @click="firstOpenRegisterDialog" color="white">注册</v-btn>
+      <div class="d-none d-lg-flex align-center">
+        <span class="white--text pt-1">/</span>
+      </div>
+      <v-btn text rounded class="text-subtitle-1" v-bind="attrs" v-on="on" color="white">登录</v-btn>
     </template>
     <v-card color="#3dceba" class="rounded-lg">
       <Content />
@@ -46,11 +48,11 @@ export default {
       },
     },
   },
-  methods:{
-    firstOpenRegisterDialog(){
-      this.$store.dispatch('firstOpenRegisterDialog')
-    }
-  }
+  methods: {
+    firstOpenRegisterDialog() {
+      this.$store.dispatch('firstOpenRegisterDialog');
+    },
+  },
 };
 </script>
 

@@ -1,7 +1,7 @@
 <template>
   <v-menu bottom min-width="200px" rounded offset-y>
     <template v-slot:activator="{ on }">
-      <v-btn icon x-large v-on="on">
+      <v-btn icon x-large v-on="on" class="d-none d-lg-flex">
         <v-avatar color="brown" size="48">
           <img src="@/assets/img/user/person-icon.png" alt="congcong" />
         </v-avatar>

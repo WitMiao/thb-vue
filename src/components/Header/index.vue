@@ -1,6 +1,8 @@
 <template>
-  <v-app-bar app color="#2595e7" dark>
-    <v-app-bar-nav-icon class="d-flex d-lg-none" @click="navListExpand = !navListExpand"></v-app-bar-nav-icon>
+  <v-app-bar app color="#2595e7" extension-height="auto" class="height-auto">
+    <v-app-bar-nav-icon class="d-flex d-lg-none" @click="navIconClick">
+      <v-icon large color="white">mdi-{{ navIcon }}</v-icon>
+    </v-app-bar-nav-icon>
     <v-row>
       <v-col class="d-flex justify-space-around">
         <router-link to="/">
@@ -22,6 +24,7 @@
           v-for="(item, i) in barTitle"
           :key="i"
           :to="item.link"
+          color="white"
           class="text-subtitle-1 font-weight-bold"
           >{{ item.text }}</v-btn
         >
@@ -33,33 +36,18 @@
         </v-toolbar-items>
       </v-col>
     </v-row>
-    <v-row>
-      <v-col class="d-flex">
-        <v-expand-transition>
-          <v-card class="mx-auto" max-width="400" tile v-show="navListExpand">
-            <v-list-item>
-              <v-list-item-content>
-                <v-list-item-title>Single-line item</v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-
-            <v-list-item two-line>
-              <v-list-item-content>
-                <v-list-item-title>Two-line item</v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-
-            <v-list-item three-line>
-              <v-list-item-content>
-                <v-list-item-title>Three-line item</v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-          </v-card>
-        </v-expand-transition>
-      </v-col>
-    </v-row>
-
-    <div class="header-bottom-line"></div>
+    <v-col class="d-flex py-1" slot="extension">
+      <v-expand-transition>
+        <v-card class="mx-auto" width="100%" tile v-show="navListExpand">
+          <v-list-item v-for="(item, i) in barTitle" :key="i" :to="item.link">
+            <v-list-item-content>
+              <v-list-item-title>{{ item.text }}</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-card>
+      </v-expand-transition>
+    </v-col>
+    <div class="header-bottom-line" :style="{ top: headerBottomLineTop }"></div>
   </v-app-bar>
 </template>
 
@@ -86,12 +74,27 @@ export default {
         { text: '联系我们', link: '/aboutus' },
       ],
       navListExpand: false,
+      navIcon: 'menu',
     };
+  },
+  methods: {
+    navIconClick() {
+      this.navListExpand = !this.navListExpand;
+      this.navIcon = this.navIcon === 'menu' ? 'chevron-down' : 'menu';
+    },
+  },
+  computed: {
+    headerBottomLineTop() {
+      return this.navListExpand ? '642%' : '124%';
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
+.height-auto {
+  height: auto !important;
+}
 .header-bottom-line {
   position: absolute;
   top: 100%;
