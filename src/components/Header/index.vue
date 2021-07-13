@@ -12,7 +12,7 @@
             contain
             src="@/assets/img/logo/logo1.png"
             transition="scale-transition"
-            width="170"
+            width="150"
             to="/"
           />
         </router-link>
@@ -97,7 +97,6 @@ export default {
 }
 .header-bottom-line {
   position: absolute;
-  top: 100%;
   left: 0;
   background: url(../../assets/img/header/line-2.png) no-repeat scroll center top;
   height: 16px;
