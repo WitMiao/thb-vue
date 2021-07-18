@@ -3,7 +3,7 @@
     <v-card-title class="pa-0">
       <v-col></v-col>
       <v-col class="d-flex justify-center">
-        <v-img alt="THB Logo" class="shrink" contain src="@/assets/img/logo/logo2.png" width="120" />
+        <v-img alt="THB Logo" class="shrink" contain src="@/assets/img/logo/logo2.png" width="120"/>
       </v-col>
       <v-col class="d-flex justify-end align-self-start pa-1">
         <v-btn icon>
@@ -36,19 +36,19 @@
 
     <v-form>
       <v-text-field
-        v-for="(item, i) in showMod.form"
-        :key="i"
-        :label="item.label"
-        :append-icon="item.isText ? '' : item.pwdShow ? 'mdi-eye' : 'mdi-eye-off'"
-        :type="item.isText || item.pwdShow ? 'text' : 'password'"
-        :placeholder="item.placeholder"
-        filled
-        background-color="white"
-        class="rounded ma-0 py-0 px-15"
-        @click:append="item.pwdShow = !item.pwdShow"
-        @blur="item.isFocus = false"
-        @focus="item.isFocus = true"
-        v-model="item.val"
+          v-for="(item, i) in showMod.form"
+          :key="i"
+          :label="item.label"
+          :append-icon="item.isText ? '' : item.pwdShow ? 'mdi-eye' : 'mdi-eye-off'"
+          :type="item.isText || item.pwdShow ? 'text' : 'password'"
+          :placeholder="item.placeholder"
+          filled
+          background-color="white"
+          class="rounded ma-0 py-0 px-15"
+          @click:append="item.pwdShow = !item.pwdShow"
+          @blur="item.isFocus = false"
+          @focus="item.isFocus = true"
+          v-model="item.val"
       ></v-text-field>
     </v-form>
     <v-card-actions class="justify-center pb-0">
@@ -66,7 +66,9 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import {mapState} from 'vuex';
+import {signIn} from '@/api'
+
 export default {
   name: 'LoginContent',
   data() {
@@ -97,10 +99,10 @@ export default {
         isLogin: false,
         title: '注册账号',
         form: [
-          { label: '账号', placeholder: '(字母+数字组合，6位含以上)', isText: true },
-          { label: '昵称', placeholder: '(给自己创建一个昵称)', isText: true },
-          { label: '密码', placeholder: '(6位含以上，不能包含特殊字符)', isText: false, pwdShow: false },
-          { label: '确认密码', placeholder: '(再次确认密码)', isText: false, pwdShow: false },
+          {label: '账号', placeholder: '(字母+数字组合，6位含以上)', isText: true},
+          {label: '昵称', placeholder: '(给自己创建一个昵称)', isText: true},
+          {label: '密码', placeholder: '(6位含以上，不能包含特殊字符)', isText: false, pwdShow: false},
+          {label: '确认密码', placeholder: '(再次确认密码)', isText: false, pwdShow: false},
         ],
         btnStr: '立即注册',
         spanStr: '已有账号？',
@@ -128,7 +130,7 @@ export default {
       return this.loginMod.form[0].val.length >= 6;
     },
     leftLength() {
-      const { length } = this.loginMod.form[0].val;
+      const {length} = this.loginMod.form[0].val;
       const leftLength = parseFloat((0.8 / 20) * length);
       return leftLength > 1 ? 1 : leftLength;
     },
@@ -150,6 +152,8 @@ export default {
       this.$store.dispatch('closeAllDialog');
     },
     login() {
+      const [{val:username},{val:password}] = this.loginMod.form;
+      signIn(username, password);
       this.closeAllDialog();
     },
     register() {
@@ -167,12 +171,14 @@ export default {
   background: #cefefb;
   position: relative;
   overflow: hidden;
+
   div {
     transition: all 0.5s;
     -o-transition: all 0.5s;
     -moz-transition: all 0.5s;
     -webkit-transition: all 0.5s;
   }
+
   .body {
     background-image: url(../../assets/img/loginBear/body.png);
     background-size: 100%;
@@ -185,6 +191,7 @@ export default {
     left: calc(50% - 5.2em);
     z-index: 0;
   }
+
   .mask {
     background-image: url(../../assets/img/loginBear/mask.png);
     background-size: 100%;
@@ -197,6 +204,7 @@ export default {
     left: calc(50% - 5.2em);
     z-index: 0;
   }
+
   .head {
     background-image: url(../../assets/img/loginBear/face.png);
     background-size: 100%;
@@ -209,6 +217,7 @@ export default {
     left: calc(50% - 3.4em);
     z-index: 1;
   }
+
   .left-ear {
     background-image: url(../../assets/img/loginBear/left-ear.png);
     background-size: 100%;
@@ -220,6 +229,7 @@ export default {
     bottom: 6em;
     left: calc(50% - 3.8em);
   }
+
   .right-ear {
     background-image: url(../../assets/img/loginBear/right-ear.png);
     background-size: 100%;
@@ -231,6 +241,7 @@ export default {
     bottom: 6em;
     left: calc(50% + 2em);
   }
+
   .left-eye {
     background-image: url(../../assets/img/loginBear/left-eye.png);
     background-size: 100%;
@@ -242,6 +253,7 @@ export default {
     bottom: 2.8em;
     left: calc(50% - 2.5em);
   }
+
   .right-eye {
     background-image: url(../../assets/img/loginBear/right-eye.png);
     background-size: 100%;
@@ -253,6 +265,7 @@ export default {
     bottom: 2.8em;
     left: calc(50% + 0.9em);
   }
+
   .face {
     background-image: url(../../assets/img/loginBear/muzzle.png);
     background-size: 100%;
@@ -264,6 +277,7 @@ export default {
     bottom: 0.5em;
     left: calc(50% - 3.3em);
   }
+
   .skin {
     background-image: url(../../assets/img/loginBear/skin.png);
     background-size: 100%;
@@ -275,6 +289,7 @@ export default {
     bottom: -0.1em;
     left: calc(50% - 4em);
   }
+
   .nose {
     background-image: url(../../assets/img/loginBear/nose.png);
     background-size: 100%;
@@ -286,6 +301,7 @@ export default {
     bottom: 1.6em;
     left: calc(50% - 0.5em);
   }
+
   .mouth {
     background-image: url(../../assets/img/loginBear/mouth-smile.png);
     background-size: 100%;
@@ -297,6 +313,7 @@ export default {
     top: 0.2em;
     left: calc(50% - 1.35em);
   }
+
   .left-arm {
     background-image: url(../../assets/img/loginBear/left-arm.png);
     background-size: 100%;
@@ -310,6 +327,7 @@ export default {
     z-index: 2;
     transition: bottom 0.5s;
   }
+
   .right-arm {
     background-image: url(../../assets/img/loginBear/right-arm.png);
     background-size: 100%;
@@ -324,51 +342,65 @@ export default {
     transition: bottom 0.5s;
   }
 }
+
 .password-animate {
   .mouth.show {
     background-image: url(../../assets/img/loginBear/mouth-circle.png);
   }
+
   .left-arm.show {
     bottom: -2em !important;
   }
+
   .right-arm.show {
     bottom: -2em !important;
   }
+
   .left-arm {
     bottom: 0.2em;
   }
+
   .right-arm {
     bottom: 0.2em;
   }
 }
+
 .username-animate {
   .left-eye {
     left: 0.5em;
     bottom: 2.3em;
   }
+
   .left-eye.doe {
     background-image: url(../../assets/img/loginBear/left-eye-doe.png);
   }
+
   .right-eye.doe {
     background-image: url(../../assets/img/loginBear/right-eye-doe.png);
   }
+
   .right-eye {
     left: 4em;
     bottom: 2.3em;
   }
+
   .face {
     bottom: 0em;
   }
+
   .skin {
     bottom: -0.6em;
   }
+
   .nose {
     left: 2.3em;
   }
+
   .mouth {
     left: 1.5em;
     background-image: url(../../assets/img/loginBear/mouth-half.png);
   }
+
   .mouth.doe {
     background-image: url(../../assets/img/loginBear/mouth-open.png);
   }

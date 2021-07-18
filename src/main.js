@@ -6,13 +6,13 @@ import vuetify from './plugins/vuetify';
 import VueCoreVideoPlayer from 'vue-core-video-player';
 
 Vue.use(VueCoreVideoPlayer, {
-  lang: 'zh-CN'
+    lang: 'zh-CN'
 });
 Vue.config.productionTip = false;
 
 new Vue({
-  render: (h) => h(App),
-  router,
-  vuetify,
-  store,
+    render: (h) => h(App),
+    router,
+    vuetify,
+    store,
 }).$mount('#app');
