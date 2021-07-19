@@ -28,7 +28,8 @@ service.interceptors.response.use(
     // 对响应错误做点什么
     store.commit('FINISHLOADING');
     // return Promise.reject(error);
-    return new Promise(() => {});
+    // return new Promise(() => {});
+    return error.message;
   }
 );
 

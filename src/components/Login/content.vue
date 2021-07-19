@@ -3,7 +3,7 @@
     <v-card-title class="pa-0">
       <v-col></v-col>
       <v-col class="d-flex justify-center">
-        <v-img alt="THB Logo" class="shrink" contain src="@/assets/img/logo/logo2.png" width="120"/>
+        <v-img alt="THB Logo" class="shrink" contain src="@/assets/img/logo/logo2.png" width="120" />
       </v-col>
       <v-col class="d-flex justify-end align-self-start pa-1">
         <v-btn icon>
@@ -34,21 +34,23 @@
       {{ showMod.title }}
     </v-card-text>
 
-    <v-form>
+    <v-form ref="loginForm">
       <v-text-field
-          v-for="(item, i) in showMod.form"
-          :key="i"
-          :label="item.label"
-          :append-icon="item.isText ? '' : item.pwdShow ? 'mdi-eye' : 'mdi-eye-off'"
-          :type="item.isText || item.pwdShow ? 'text' : 'password'"
-          :placeholder="item.placeholder"
-          filled
-          background-color="white"
-          class="rounded ma-0 py-0 px-15"
-          @click:append="item.pwdShow = !item.pwdShow"
-          @blur="item.isFocus = false"
-          @focus="item.isFocus = true"
-          v-model="item.val"
+        v-for="(item, name, i) in showMod.form"
+        :key="i"
+        :label="item.label"
+        required
+        :append-icon="item.isText ? '' : item.pwdShow ? 'mdi-eye' : 'mdi-eye-off'"
+        :type="item.isText || item.pwdShow ? 'text' : 'password'"
+        :placeholder="item.placeholder"
+        filled
+        background-color="white"
+        class="rounded ma-0 py-0 px-15"
+        @click:append="item.pwdShow = !item.pwdShow"
+        @input="vInput(name)"
+        @blur="item.isFocus = false"
+        @focus="item.isFocus = true"
+        v-model="item.val"
       ></v-text-field>
     </v-form>
     <v-card-actions class="justify-center pb-0">
@@ -66,31 +68,32 @@
 </template>
 
 <script>
-import {mapState} from 'vuex';
-import {signIn} from '@/api'
-
+import { mapState } from 'vuex';
+import { signIn } from '@/api';
+import { required, minLength } from 'vuelidate/lib/validators';
 export default {
   name: 'LoginContent',
   data() {
     return {
       loginMod: {
         isLogin: true,
-        form: [
-          {
+        form: {
+          username: {
             label: '账号',
             placeholder: '请输入账号',
             isText: true,
             isFocus: false,
             val: '',
           },
-          {
+          password: {
             label: '密码',
             placeholder: '请输入密码(不少于6位)',
             isText: false,
             pwdShow: false,
             isFocus: false,
+            val: '',
           },
-        ],
+        },
         btnStr: '立即登录',
         spanStr: '没有账号？',
         toggleBtnStr: '免费注册',
@@ -98,17 +101,68 @@ export default {
       registerMod: {
         isLogin: false,
         title: '注册账号',
-        form: [
-          {label: '账号', placeholder: '(字母+数字组合，6位含以上)', isText: true},
-          {label: '昵称', placeholder: '(给自己创建一个昵称)', isText: true},
-          {label: '密码', placeholder: '(6位含以上，不能包含特殊字符)', isText: false, pwdShow: false},
-          {label: '确认密码', placeholder: '(再次确认密码)', isText: false, pwdShow: false},
-        ],
+        form: {
+          rUsername: { label: '账号', placeholder: '(字母+数字组合，6位含以上)', isText: true, val: '' },
+          nickname: { label: '昵称', placeholder: '(给自己创建一个昵称)', isText: true, val: '' },
+          rPassword: {
+            label: '密码',
+            placeholder: '(6位含以上，不能包含特殊字符)',
+            isText: false,
+            pwdShow: false,
+            val: '',
+          },
+          rePassword: { label: '确认密码', placeholder: '(再次确认密码)', isText: false, pwdShow: false, val: '' },
+        },
         btnStr: '立即注册',
         spanStr: '已有账号？',
         toggleBtnStr: '立即登录',
       },
     };
+  },
+  validations: {
+    loginMod: {
+      form: {
+        username: {
+          val: {
+            required,
+            minLength: minLength(6),
+          },
+        },
+        password: {
+          val: {
+            required,
+            minLength: minLength(6),
+          },
+        },
+      },
+    },
+    registerMod: {
+      form: {
+        rUsername: {
+          val: {
+            required,
+            minLength: minLength(6),
+          },
+        },
+        nikename: {
+          val: {
+            required,
+          },
+        },
+        rPassword: {
+          val: {
+            required,
+            minLength: minLength(6),
+          },
+        },
+        rePassword: {
+          val: {
+            required,
+            minLength: minLength(6),
+          },
+        },
+      },
+    },
   },
   computed: {
     ...mapState({
@@ -118,19 +172,19 @@ export default {
       return this.registerDialog ? this.registerMod : this.loginMod;
     },
     isPwdShow() {
-      return this.loginMod.form[1].pwdShow;
+      return this.loginMod.form.password.pwdShow;
     },
     isUserNameFocus() {
-      return this.loginMod.form[0].isFocus;
+      return this.loginMod.form.username.isFocus;
     },
     isPasswordFocus() {
-      return this.loginMod.form[1].isFocus;
+      return this.loginMod.form.password.isFocus;
     },
     isDoe() {
-      return this.loginMod.form[0].val.length >= 6;
+      return this.loginMod.form.username.val.length >= 6;
     },
     leftLength() {
-      const {length} = this.loginMod.form[0].val;
+      const { length } = this.loginMod.form.username.val;
       const leftLength = parseFloat((0.8 / 20) * length);
       return leftLength > 1 ? 1 : leftLength;
     },
@@ -151,9 +205,32 @@ export default {
     closeAllDialog() {
       this.$store.dispatch('closeAllDialog');
     },
-    login() {
-      const [{val:username},{val:password}] = this.loginMod.form;
-      signIn(username, password);
+    vInput(name) {
+      switch (name) {
+        case 'username':
+          return this.$v.loginMod.form.username.val.$touch();
+        case 'password':
+          return this.$v.loginMod.form.password.val.$touch();
+        case 'rUsername':
+          return this.$v.registerMod.form.rUsername.val.$touch();
+        case 'nikename':
+          return this.$v.registerMod.form.nikename.val.$touch();
+        case 'rPassword':
+          return this.$v.registerMod.form.rPassword.val.$touch();
+        case 'rePassword':
+          return this.$v.registerMod.form.rePassword.val.$touch();
+        default:
+          break;
+      }
+    },
+    async login() {
+      this.$v.$touch()
+      const {
+        username: { val: uname },
+        password: { val: pwd },
+      } = this.loginMod.form;
+      const result = await signIn(uname, pwd);
+      console.log(result);
       this.closeAllDialog();
     },
     register() {
