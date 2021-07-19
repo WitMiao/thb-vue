@@ -1,7 +1,6 @@
 <template>
   <v-app-bar app color="#2595e7" extension-height="auto" class="height-auto">
-    
-    <v-app-bar-nav-icon class="d-flex d-lg-none" @click="navIconClick">
+    <v-app-bar-nav-icon class="d-flex d-lg-none mt-5" @click="navIconClick">
       <v-icon large color="white">mdi-{{ navIcon }}</v-icon>
     </v-app-bar-nav-icon>
     <v-row>
@@ -9,7 +8,7 @@
         <router-link to="/">
           <v-img
             alt="THB Logo"
-            class="shrink mr-10"
+            class="shrink mr-10 mt-5"
             contain
             src="@/assets/img/logo/logo1.png"
             transition="scale-transition"
@@ -26,11 +25,11 @@
           :key="i"
           :to="item.link"
           color="white"
-          class="text-subtitle-1 font-weight-bold"
+          class="text-subtitle-1 font-weight-bold mt-5"
           >{{ item.text }}</v-btn
         >
       </v-col>
-      <v-col class="d-flex justify-space-around">
+      <v-col class="d-flex justify-space-around mt-5">
         <v-toolbar-items>
           <User />
           <Login />
@@ -39,7 +38,7 @@
     </v-row>
     <v-col class="d-flex py-1" slot="extension">
       <v-expand-transition>
-        <v-card class="mx-auto" width="100%" tile v-show="navListExpand">
+        <v-card class="mx-auto mt-5" width="100%" tile v-show="navListExpand">
           <v-list-item v-for="(item, i) in barTitle" :key="i" :to="item.link">
             <v-list-item-content>
               <v-list-item-title>{{ item.text }}</v-list-item-title>
@@ -86,7 +85,7 @@ export default {
   },
   computed: {
     headerBottomLineTop() {
-      return this.navListExpand ? '642%' : '124%';
+      return this.navListExpand ? '678%' : '124%';
     },
   },
 };
