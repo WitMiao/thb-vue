@@ -1,5 +1,6 @@
 <template>
   <v-app-bar app color="#2595e7" extension-height="auto" class="height-auto">
+    
     <v-app-bar-nav-icon class="d-flex d-lg-none" @click="navIconClick">
       <v-icon large color="white">mdi-{{ navIcon }}</v-icon>
     </v-app-bar-nav-icon>

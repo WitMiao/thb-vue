@@ -1,6 +1,7 @@
 const state = {
   loginDialog: false,
   registerDialog: false,
+  isLoading: false,
 };
 
 const mutations = {
@@ -22,6 +23,15 @@ const mutations = {
   SETREGISTERIALOG(state, value) {
     state.registerDialog = value;
   },
+  STARTLOADING(){
+    state.isLoading = true;
+  },
+  FINISHLOADING(){
+    state.isLoading = false;
+  },
+  SETISLOADING(state, value) {
+    state.isLoading = value;
+  },
 };
 
 const actions = {
@@ -29,10 +39,10 @@ const actions = {
     content.commit('OPENLOGINDIALOG');
     content.commit('OPENREGISTERDIALOG');
   },
-  closeAllDialog(content){
+  closeAllDialog(content) {
     content.commit('CLOSEREGISTERDIALOG');
     content.commit('CLOSELOGINDIALOG');
-  }
+  },
 };
 
 const getters = {};
