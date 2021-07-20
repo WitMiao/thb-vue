@@ -39,16 +39,17 @@
         v-for="(item, name, i) in showMod.form"
         :key="i"
         :label="item.label"
-        required
         :append-icon="item.isText ? '' : item.pwdShow ? 'mdi-eye' : 'mdi-eye-off'"
         :type="item.isText || item.pwdShow ? 'text' : 'password'"
         :placeholder="item.placeholder"
+        required
         filled
         background-color="white"
         class="rounded ma-0 py-0 px-15"
+        :error-messages="inputErrors(name, item)"
         @click:append="item.pwdShow = !item.pwdShow"
         @input="vInput(name)"
-        @blur="item.isFocus = false"
+        @blur="vBlur(name, item)"
         @focus="item.isFocus = true"
         v-model="item.val"
       ></v-text-field>
@@ -70,7 +71,7 @@
 <script>
 import { mapState } from 'vuex';
 import { signIn } from '@/api';
-import { required, minLength } from 'vuelidate/lib/validators';
+import { required, minLength, maxLength, alphaNum } from 'vuelidate/lib/validators';
 export default {
   name: 'LoginContent',
   data() {
@@ -87,7 +88,7 @@ export default {
           },
           password: {
             label: '密码',
-            placeholder: '请输入密码(不少于6位)',
+            placeholder: '请输入密码',
             isText: false,
             pwdShow: false,
             isFocus: false,
@@ -103,10 +104,10 @@ export default {
         title: '注册账号',
         form: {
           rUsername: { label: '账号', placeholder: '(字母+数字组合，6位含以上)', isText: true, val: '' },
-          nickname: { label: '昵称', placeholder: '(给自己创建一个昵称)', isText: true, val: '' },
+          nickname: { label: '昵称', placeholder: '(可输入中文、字母或者数字)', isText: true, val: '' },
           rPassword: {
             label: '密码',
-            placeholder: '(6位含以上，不能包含特殊字符)',
+            placeholder: '(6-16位，至少包含数字跟字母)',
             isText: false,
             pwdShow: false,
             val: '',
@@ -125,6 +126,7 @@ export default {
         username: {
           val: {
             required,
+            alphaNum,
             minLength: minLength(6),
           },
         },
@@ -132,6 +134,7 @@ export default {
           val: {
             required,
             minLength: minLength(6),
+            maxLength: maxLength(16),
           },
         },
       },
@@ -141,24 +144,36 @@ export default {
         rUsername: {
           val: {
             required,
+            alphaNum,
             minLength: minLength(6),
           },
         },
-        nikename: {
+        nickname: {
           val: {
             required,
+            minLength: minLength(1),
+            isNickname(value) {
+              const regExp = /^[a-z0-9\u4e00-\u9fa5]+$/i;
+              return regExp.test(value);
+            },
           },
         },
         rPassword: {
           val: {
             required,
             minLength: minLength(6),
+            maxLength: maxLength(16),
+            isPassword(value) {
+              const regExp = /(?=.*([a-zA-Z].*))(?=.*[0-9].*)[a-zA-Z0-9-*/+.~!@#$%^&*()]{6,20}$/;
+              return regExp.test(value);
+            },
           },
         },
         rePassword: {
           val: {
-            required,
-            minLength: minLength(6),
+            sameAsPassword: function() {
+              return this.isSameAsPassword;
+            },
           },
         },
       },
@@ -171,20 +186,32 @@ export default {
     showMod() {
       return this.registerDialog ? this.registerMod : this.loginMod;
     },
+    formName() {
+      return this.registerDialog ? 'registerMod' : 'loginMod';
+    },
+    loginForm() {
+      return this.loginMod.form;
+    },
+    registerForm() {
+      return this.registerMod.form;
+    },
+    isSameAsPassword() {
+      return this.registerForm.rPassword.val === this.registerForm.rePassword.val;
+    },
     isPwdShow() {
-      return this.loginMod.form.password.pwdShow;
+      return this.loginForm.password.pwdShow;
     },
     isUserNameFocus() {
-      return this.loginMod.form.username.isFocus;
+      return this.loginForm.username.isFocus;
     },
     isPasswordFocus() {
-      return this.loginMod.form.password.isFocus;
+      return this.loginForm.password.isFocus;
     },
     isDoe() {
-      return this.loginMod.form.username.val.length >= 6;
+      return this.loginForm.username.val.length >= 6;
     },
     leftLength() {
-      const { length } = this.loginMod.form.username.val;
+      const { length } = this.loginForm.username.val;
       const leftLength = parseFloat((0.8 / 20) * length);
       return leftLength > 1 ? 1 : leftLength;
     },
@@ -193,48 +220,73 @@ export default {
     getPosition(init, plusOrMinus) {
       return this.isUserNameFocus ? init + plusOrMinus * this.leftLength + 'em' : '';
     },
+    initFormVal() {
+      const form = this[this.formName].form;
+      for (const item in form) {
+        form[item].val = '';
+      }
+      this.$v.$reset();
+    },
     closeLoginDialog() {
+      this.initFormVal();
       this.$store.commit('CLOSELOGINDIALOG');
     },
     closeRegisterDialog() {
+      this.initFormVal();
       this.$store.commit('CLOSEREGISTERDIALOG');
     },
     openRegisterDialog() {
+      this.initFormVal();
       this.$store.commit('OPENREGISTERDIALOG');
     },
     closeAllDialog() {
+      this.initFormVal();
       this.$store.dispatch('closeAllDialog');
     },
     vInput(name) {
-      switch (name) {
-        case 'username':
-          return this.$v.loginMod.form.username.val.$touch();
-        case 'password':
-          return this.$v.loginMod.form.password.val.$touch();
-        case 'rUsername':
-          return this.$v.registerMod.form.rUsername.val.$touch();
-        case 'nikename':
-          return this.$v.registerMod.form.nikename.val.$touch();
-        case 'rPassword':
-          return this.$v.registerMod.form.rPassword.val.$touch();
-        case 'rePassword':
-          return this.$v.registerMod.form.rePassword.val.$touch();
-        default:
-          break;
-      }
+      this.$v[this.formName].form[name].val.$touch();
+    },
+    vBlur(name, item) {
+      item.isFocus = false;
+      this.vInput(name);
+    },
+    inputErrors(name, item) {
+      const errors = [];
+      const inputVal = this.$v[this.formName].form[name].val;
+      if (!inputVal.$dirty) return errors;
+      alphaNum;
+      inputVal.hasOwnProperty('required') && !inputVal.required && errors.push(item.label + '为必填项！');
+      inputVal.hasOwnProperty('alphaNum') && !inputVal.alphaNum && errors.push(item.label + '只能包含字母和数字！');
+      inputVal.hasOwnProperty('minLength') && !inputVal.minLength && errors.push(item.label + '至少六个字符！');
+      inputVal.hasOwnProperty('maxLength') && !inputVal.maxLength && errors.push(item.label + '最多十六个字符！');
+      inputVal.hasOwnProperty('sameAsPassword') && !inputVal.sameAsPassword && errors.push('两次密码不一致！');
+      inputVal.hasOwnProperty('isNickname') &&
+        !inputVal.isNickname &&
+        errors.push(item.label + '只能包含中文、字母和数字！');
+      inputVal.hasOwnProperty('isPassword') &&
+        !inputVal.isPassword &&
+        errors.push(item.label + '至少包含数字跟字母，可以有常用字符！');
+      return errors;
     },
     async login() {
-      this.$v.$touch()
-      const {
-        username: { val: uname },
-        password: { val: pwd },
-      } = this.loginMod.form;
-      const result = await signIn(uname, pwd);
-      console.log(result);
-      this.closeAllDialog();
+      const vLoginForm = this.$v.loginMod.form;
+      vLoginForm.$touch();
+      if (!vLoginForm.$invalid) {
+        const {
+          username: { val: uname },
+          password: { val: pwd },
+        } = this.loginForm;
+        const result = await signIn(uname, pwd);
+        console.log(result);
+        this.closeAllDialog();
+      }
     },
     register() {
-      this.closeRegisterDialog();
+      const vRegisterForm = this.$v.registerMod.form;
+      vRegisterForm.$touch();
+      if (!vRegisterForm.$invalid) {
+        this.closeRegisterDialog();
+      }
     },
   },
 };
