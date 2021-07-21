@@ -29,7 +29,7 @@ service.interceptors.response.use(
     store.commit('FINISHLOADING');
     // return Promise.reject(error);
     // return new Promise(() => {});
-    return error.message;
+    return { status: 'error', msg: error.message };
   }
 );
 

@@ -54,14 +54,17 @@
         v-model="item.val"
       ></v-text-field>
     </v-form>
+    <v-card-actions class="justify-center pa-0 red--text" v-show="showMod.errorStr.isShow">
+      <span>{{ showMod.errorStr.val }}</span>
+    </v-card-actions>
     <v-card-actions class="justify-center pb-0">
-      <v-btn color="warning" large @click="showMod.isLogin ? login() : register()" width="75%">
+      <v-btn :loading="loading" color="warning" large @click="showMod.isLogin ? login() : register()" width="75%">
         <span class="text-h6 font-weight-black">{{ showMod.btnStr }}</span>
       </v-btn>
     </v-card-actions>
     <v-card-actions class="justify-center pa-0 pb-16">
       <span>{{ showMod.spanStr }}</span>
-      <v-btn text @click="showMod.isLogin ? openRegisterDialog() : closeRegisterDialog()">
+      <v-btn :disabled="loading" text @click="showMod.isLogin ? openRegisterDialog() : closeRegisterDialog()">
         {{ showMod.toggleBtnStr }}
       </v-btn>
     </v-card-actions>
@@ -98,6 +101,10 @@ export default {
         btnStr: '立即登录',
         spanStr: '没有账号？',
         toggleBtnStr: '免费注册',
+        errorStr: {
+          isShow: false,
+          val: '',
+        },
       },
       registerMod: {
         isLogin: false,
@@ -117,7 +124,12 @@ export default {
         btnStr: '立即注册',
         spanStr: '已有账号？',
         toggleBtnStr: '立即登录',
+        errorStr: {
+          isShow: false,
+          val: '',
+        },
       },
+      loading: false,
     };
   },
   validations: {
@@ -223,12 +235,19 @@ export default {
     getPosition(init, plusOrMinus) {
       return this.isUserNameFocus ? init + plusOrMinus * this.leftLength + 'em' : '';
     },
+    initErrorStr() {
+      this[this.formName].errorStr = {
+        isShow: false,
+        val: '',
+      };
+    },
     initFormVal() {
       const form = this[this.formName].form;
       for (const item in form) {
         form[item].val = '';
       }
       this.$v.$reset();
+      this.initErrorStr();
     },
     closeLoginDialog() {
       this.initFormVal();
@@ -265,7 +284,6 @@ export default {
       const errors = [];
       const inputVal = this.$v[this.formName].form[name].val;
       if (!inputVal.$dirty) return errors;
-      alphaNum;
       inputVal.hasOwnProperty('required') && !inputVal.required && errors.push(item.label + '为必填项！');
       inputVal.hasOwnProperty('alphaNum') && !inputVal.alphaNum && errors.push(item.label + '只能包含字母和数字！');
       inputVal.hasOwnProperty('minLength') && !inputVal.minLength && errors.push(item.label + '至少六个字符！');
@@ -288,9 +306,25 @@ export default {
           username: { val: uname },
           password: { val: pwd },
         } = this.loginForm;
+        this.loading = true;
         const result = await signIn(uname, pwd);
-        console.log(result);
-        this.closeAllDialog();
+        this.loading = false;
+        const { status, msg } = result;
+        // console.log(result);
+        const errorStr = this.loginMod.errorStr;
+        switch (status) {
+          case 'success':
+            this.closeAllDialog();
+            break;
+          case 'error':
+          case 'nouser':
+          case 'pwderror':
+            errorStr.val = msg;
+            errorStr.isShow = true;
+            break;
+          default:
+            break;
+        }
       }
     },
     register() {
