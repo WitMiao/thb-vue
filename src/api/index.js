@@ -3,9 +3,9 @@ import request from './ajax';
 
 /**
  * 用户登录接口
- * @param {用户名} username
- * @param {密码} password
- * @returns
+ * @param {string} username 用户名
+ * @param {string} userpwd 密码
+ * @return {Object} {state,msg}
  */
 export const signIn = (username, userpwd) => {
   return request({
@@ -20,10 +20,10 @@ export const signIn = (username, userpwd) => {
 
 /**
  * 用户注册接口
- * @param {用户名} username
- * @param {密码} password
- * @param {昵称} nickname
- * @returns
+ * @param {string} username 用户名
+ * @param {string} userpwd 密码
+ * @param {string} nickname 昵称
+ * @return {Object} {state,msg}
  */
 export const register = (username, userpwd, nickname) => {
   return request({
