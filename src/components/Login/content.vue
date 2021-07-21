@@ -103,11 +103,11 @@ export default {
         isLogin: false,
         title: '注册账号',
         form: {
-          rUsername: { label: '账号', placeholder: '(字母+数字组合，6位含以上)', isText: true, val: '' },
-          nickname: { label: '昵称', placeholder: '(可输入中文、字母或者数字)', isText: true, val: '' },
+          rUsername: { label: '账号', placeholder: '(6-20位，字母+数字组合)', isText: true, val: '' },
+          nickname: { label: '昵称', placeholder: '(1-20位，可输入中文、字母或者数字)', isText: true, val: '' },
           rPassword: {
             label: '密码',
-            placeholder: '(6-16位，至少包含数字跟字母)',
+            placeholder: '(6-20位，至少包含数字跟字母)',
             isText: false,
             pwdShow: false,
             val: '',
@@ -128,13 +128,17 @@ export default {
             required,
             alphaNum,
             minLength: minLength(6),
+            maxLength: maxLength(20),
           },
         },
         password: {
           val: {
             required,
             minLength: minLength(6),
-            maxLength: maxLength(16),
+            maxLength: maxLength(20),
+            isPassword(value) {
+              return this.vIsPassword(value);
+            },
           },
         },
       },
@@ -146,15 +150,15 @@ export default {
             required,
             alphaNum,
             minLength: minLength(6),
+            maxLength: maxLength(20),
           },
         },
         nickname: {
           val: {
             required,
-            minLength: minLength(1),
+            maxLength: maxLength(20),
             isNickname(value) {
-              const regExp = /^[a-z0-9\u4e00-\u9fa5]+$/i;
-              return regExp.test(value);
+              return this.vIsNickname(value);
             },
           },
         },
@@ -162,16 +166,15 @@ export default {
           val: {
             required,
             minLength: minLength(6),
-            maxLength: maxLength(16),
+            maxLength: maxLength(20),
             isPassword(value) {
-              const regExp = /(?=.*([a-zA-Z].*))(?=.*[0-9].*)[a-zA-Z0-9-*/+.~!@#$%^&*()]{6,20}$/;
-              return regExp.test(value);
+              return this.vIsPassword(value);
             },
           },
         },
         rePassword: {
           val: {
-            sameAsPassword: function() {
+            sameAsPassword() {
               return this.isSameAsPassword;
             },
           },
@@ -250,6 +253,14 @@ export default {
       item.isFocus = false;
       this.vInput(name);
     },
+    vIsPassword(value) {
+      const regExp = /(?=.*([a-zA-Z].*))(?=.*[0-9].*)[a-zA-Z0-9-*/+.~!@#$%^&*()]{6,20}$/;
+      return regExp.test(value);
+    },
+    vIsNickname(value) {
+      const regExp = /^[a-z0-9\u4e00-\u9fa5]+$/i;
+      return regExp.test(value);
+    },
     inputErrors(name, item) {
       const errors = [];
       const inputVal = this.$v[this.formName].form[name].val;
@@ -258,7 +269,7 @@ export default {
       inputVal.hasOwnProperty('required') && !inputVal.required && errors.push(item.label + '为必填项！');
       inputVal.hasOwnProperty('alphaNum') && !inputVal.alphaNum && errors.push(item.label + '只能包含字母和数字！');
       inputVal.hasOwnProperty('minLength') && !inputVal.minLength && errors.push(item.label + '至少六个字符！');
-      inputVal.hasOwnProperty('maxLength') && !inputVal.maxLength && errors.push(item.label + '最多十六个字符！');
+      inputVal.hasOwnProperty('maxLength') && !inputVal.maxLength && errors.push(item.label + '最多二十个字符！');
       inputVal.hasOwnProperty('sameAsPassword') && !inputVal.sameAsPassword && errors.push('两次密码不一致！');
       inputVal.hasOwnProperty('isNickname') &&
         !inputVal.isNickname &&
@@ -268,6 +279,7 @@ export default {
         errors.push(item.label + '至少包含数字跟字母，可以有常用字符！');
       return errors;
     },
+
     async login() {
       const vLoginForm = this.$v.loginMod.form;
       vLoginForm.$touch();
