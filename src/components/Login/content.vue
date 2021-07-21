@@ -11,7 +11,7 @@
         </v-btn>
       </v-col>
     </v-card-title>
-    <v-card-text v-if="showMod.isLogin" class="d-flex justify-center">
+    <v-card-text v-if="!registerDialog" class="d-flex justify-center">
       <div class="login-animate" :class="{ 'username-animate': isUserNameFocus, 'password-animate': isPasswordFocus }">
         <div class="head">
           <div class="skin" :style="{ left: getPosition(-0.7, 1) }"></div>
@@ -58,13 +58,13 @@
       <span>{{ showMod.errorStr.val }}</span>
     </v-card-actions>
     <v-card-actions class="justify-center pb-0">
-      <v-btn :loading="loading" color="warning" large @click="showMod.isLogin ? login() : register()" width="75%">
+      <v-btn :loading="loading" color="warning" large @click="submit()" width="75%">
         <span class="text-h6 font-weight-black">{{ showMod.btnStr }}</span>
       </v-btn>
     </v-card-actions>
     <v-card-actions class="justify-center pa-0 pb-16">
       <span>{{ showMod.spanStr }}</span>
-      <v-btn :disabled="loading" text @click="showMod.isLogin ? openRegisterDialog() : closeRegisterDialog()">
+      <v-btn :disabled="loading" text @click="registerDialog ? closeRegisterDialog() : openRegisterDialog()">
         {{ showMod.toggleBtnStr }}
       </v-btn>
     </v-card-actions>
@@ -73,14 +73,13 @@
 
 <script>
 import { mapState } from 'vuex';
-import { signIn } from '@/api';
+import { signIn, register } from '@/api';
 import { required, minLength, maxLength, alphaNum } from 'vuelidate/lib/validators';
 export default {
   name: 'LoginContent',
   data() {
     return {
       loginMod: {
-        isLogin: true,
         form: {
           username: {
             label: '账号',
@@ -107,7 +106,6 @@ export default {
         },
       },
       registerMod: {
-        isLogin: false,
         title: '注册账号',
         form: {
           rUsername: { label: '账号', placeholder: '(6-20位，字母+数字组合)', isText: true, val: '' },
@@ -196,6 +194,7 @@ export default {
   },
   computed: {
     ...mapState({
+      loginDialog: (state) => state.header.loginDialog,
       registerDialog: (state) => state.header.registerDialog,
     }),
     showMod() {
@@ -298,40 +297,44 @@ export default {
       return errors;
     },
 
-    async login() {
-      const vLoginForm = this.$v.loginMod.form;
-      vLoginForm.$touch();
-      if (!vLoginForm.$invalid) {
-        const {
-          username: { val: uname },
-          password: { val: pwd },
-        } = this.loginForm;
+    async submit() {
+      const vShowForm = this.$v[this.formName].form;
+      vShowForm.$touch();
+      if (!vShowForm.$invalid) {
         this.loading = true;
-        const result = await signIn(uname, pwd);
+        let result = {};
+        if (!this.registerDialog) {
+          const {
+            username: { val: uname },
+            password: { val: pwd },
+          } = this.loginForm;
+          result = await signIn(uname, pwd);
+        } else {
+          const {
+            rUsername: { val: uname },
+            rPassword: { val: pwd },
+            nickname: { val: nname },
+          } = this.registerForm;
+          result = await register(uname, pwd, nname);
+        }
+
         this.loading = false;
         const { status, msg } = result;
         // console.log(result);
-        const errorStr = this.loginMod.errorStr;
+        const errorStr = this[this.formName].errorStr;
         switch (status) {
           case 'success':
-            this.closeAllDialog();
+            this.registerDialog ? this.closeRegisterDialog() : this.closeAllDialog();
             break;
           case 'error':
           case 'nouser':
           case 'pwderror':
+          case 'fail':
+          default:
             errorStr.val = msg;
             errorStr.isShow = true;
             break;
-          default:
-            break;
         }
-      }
-    },
-    register() {
-      const vRegisterForm = this.$v.registerMod.form;
-      vRegisterForm.$touch();
-      if (!vRegisterForm.$invalid) {
-        this.closeRegisterDialog();
       }
     },
   },
