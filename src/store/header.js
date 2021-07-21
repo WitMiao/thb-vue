@@ -2,6 +2,7 @@ const state = {
   loginDialog: false,
   registerDialog: false,
   isLoading: false,
+  isUserLogin: false,
 };
 
 const mutations = {
@@ -23,14 +24,23 @@ const mutations = {
   SETREGISTERIALOG(state, value) {
     state.registerDialog = value;
   },
-  STARTLOADING(){
+  STARTLOADING() {
     state.isLoading = true;
   },
-  FINISHLOADING(){
+  FINISHLOADING() {
     state.isLoading = false;
   },
   SETISLOADING(state, value) {
     state.isLoading = value;
+  },
+  USERLOGIN(){
+    state.isUserLogin = true;
+  },
+  USERLOGOUT(){
+    state.isUserLogin = false;
+  },
+  SETISUSERLOGIN(state, value) {
+    state.isUserLogin = value;
   },
 };
 

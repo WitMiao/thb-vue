@@ -1,7 +1,12 @@
 <template>
   <v-menu bottom min-width="200px" rounded offset-y>
     <template v-slot:activator="{ on }">
-      <v-btn icon x-large v-on="on" class="d-none d-lg-flex">
+      <v-btn icon x-large class="d-none d-lg-flex" v-if="!isUserLogin" @click="openLoginDialog">
+        <v-avatar color="brown" size="48">
+          <img src="@/assets/img/user/person-icon.png" alt="congcong" />
+        </v-avatar>
+      </v-btn>
+      <v-btn icon x-large v-on="on" class="d-none d-lg-flex" v-else>
         <v-avatar color="brown" size="48">
           <img src="@/assets/img/user/person-icon.png" alt="congcong" />
         </v-avatar>
@@ -40,8 +45,19 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 export default {
   name: 'User',
+  computed: {
+    ...mapState({
+      isUserLogin: (state) => state.header.isUserLogin,
+    }),
+  },
+  methods: {
+    openLoginDialog() {
+      this.$store.commit('OPENLOGINDIALOG');
+    },
+  },
 };
 </script>
 

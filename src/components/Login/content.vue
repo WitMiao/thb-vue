@@ -194,7 +194,6 @@ export default {
   },
   computed: {
     ...mapState({
-      loginDialog: (state) => state.header.loginDialog,
       registerDialog: (state) => state.header.registerDialog,
     }),
     showMod() {
@@ -324,7 +323,13 @@ export default {
         const errorStr = this[this.formName].errorStr;
         switch (status) {
           case 'success':
-            this.registerDialog ? this.closeRegisterDialog() : this.closeAllDialog();
+            if (!this.registerDialog) {
+              this.$store.commit('USERLOGIN');
+              this.closeAllDialog();
+            } else {
+              this.closeRegisterDialog();
+              alert('注册成功！');
+            }
             break;
           case 'error':
           case 'nouser':

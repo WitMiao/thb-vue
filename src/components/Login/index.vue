@@ -1,17 +1,21 @@
 <template>
-  <v-dialog v-model="loginDialog" persistent transition="dialog-top-transition" width="440">
+  <v-dialog v-model="mLoginDialog" persistent transition="dialog-top-transition" width="440">
     <template v-slot:activator="{ on, attrs }">
-      <v-btn text rounded class="d-none d-lg-flex text-subtitle-1" @click="firstOpenRegisterDialog" color="white">注册</v-btn>
-      <div class="d-none d-lg-flex align-center">
-        <span class="white--text pt-1">/</span>
+      <div class="d-flex align-center" v-if="!isUserLogin">
+        <v-btn text rounded class="text-subtitle-1" v-bind="attrs" v-on="on" color="white">登录</v-btn>
+        <div class="d-none d-lg-flex align-center">
+          <span class="white--text pt-1">/</span>
+        </div>
+        <v-btn text rounded class="d-none d-lg-flex text-subtitle-1" @click="firstOpenRegisterDialog" color="white"
+          >注册</v-btn
+        >
       </div>
-      <v-btn text rounded class="text-subtitle-1" v-bind="attrs" v-on="on" color="white">登录</v-btn>
     </template>
     <v-card color="#3dceba" class="rounded-lg">
       <Content />
       <v-expand-transition>
         <v-card
-          v-if="registerDialog"
+          v-if="mRegisterDialog"
           color="#3dceba"
           class="transition-fast-in-fast-out v-card--reveal rounded-lg"
           style="height: 100%;"
@@ -24,6 +28,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import Content from './content.vue';
 export default {
   name: 'Login',
@@ -31,20 +36,25 @@ export default {
     Content,
   },
   computed: {
-    loginDialog: {
+    ...mapState({
+      loginDialog: (state) => state.header.loginDialog,
+      registerDialog: (state) => state.header.registerDialog,
+      isUserLogin: (state) => state.header.isUserLogin,
+    }),
+    mLoginDialog: {
       set(value) {
         this.$store.commit('SETLOGINDIALOG', value);
       },
       get() {
-        return this.$store.state.header.loginDialog;
+        return this.loginDialog;
       },
     },
-    registerDialog: {
+    mRegisterDialog: {
       set(value) {
         this.$store.commit('SETREGISTERDIALOG', value);
       },
       get() {
-        return this.$store.state.header.registerDialog;
+        return this.registerDialog;
       },
     },
   },
