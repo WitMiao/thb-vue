@@ -311,7 +311,7 @@ export default {
     background-position: center center;
     padding: 140px 0;
     &.bg1 {
-      background-image: url(../../assets/img/background/bg1.png);
+      background-image: url(~@/assets/img/background/bg1.png);
     }
     @media only screen and (min-width: 768px) and (max-width: 991px) {
       &.bg1 {
@@ -324,7 +324,7 @@ export default {
       }
     }
     &.bg3 {
-      background-image: url(../../assets/img/background/bg3.jpg);
+      background-image: url(~@/assets/img/background/bg3.jpg);
     }
   }
 }

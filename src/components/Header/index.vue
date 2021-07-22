@@ -98,7 +98,7 @@ export default {
 .header-bottom-line {
   position: absolute;
   left: 0;
-  background: url(../../assets/img/header/line-2.png) no-repeat scroll center top;
+  background: url(~@/assets/img/header/line-2.png) no-repeat scroll center top;
   height: 16px;
   width: 100%;
 }

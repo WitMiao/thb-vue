@@ -52,6 +52,7 @@
         @blur="vBlur(name, item)"
         @focus="item.isFocus = true"
         v-model="item.val"
+        @keyup.enter="submit()"
       ></v-text-field>
     </v-form>
     <v-card-actions class="justify-center pa-0 red--text" v-show="showMod.errorStr.isShow">
@@ -117,7 +118,13 @@ export default {
             pwdShow: false,
             val: '',
           },
-          rePassword: { label: '确认密码', placeholder: '(再次确认密码)', isText: false, pwdShow: false, val: '' },
+          rePassword: {
+            label: '确认密码',
+            placeholder: '(再次确认密码)',
+            isText: false,
+            pwdShow: false,
+            val: '',
+          },
         },
         btnStr: '立即注册',
         spanStr: '已有账号？',
@@ -334,6 +341,7 @@ export default {
           case 'error':
           case 'nouser':
           case 'pwderror':
+          case 'banned':
           case 'fail':
           default:
             errorStr.val = msg;
@@ -363,7 +371,7 @@ export default {
   }
 
   .body {
-    background-image: url(../../assets/img/loginBear/body.png);
+    background-image: url(~@/assets/img/loginBear/body.png);
     background-size: 100%;
     background-repeat: no-repeat;
     background-position: center;
@@ -376,7 +384,7 @@ export default {
   }
 
   .mask {
-    background-image: url(../../assets/img/loginBear/mask.png);
+    background-image: url(~@/assets/img/loginBear/mask.png);
     background-size: 100%;
     background-repeat: no-repeat;
     background-position: center;
@@ -389,7 +397,7 @@ export default {
   }
 
   .head {
-    background-image: url(../../assets/img/loginBear/face.png);
+    background-image: url(~@/assets/img/loginBear/face.png);
     background-size: 100%;
     background-repeat: no-repeat;
     background-position: center;
@@ -402,7 +410,7 @@ export default {
   }
 
   .left-ear {
-    background-image: url(../../assets/img/loginBear/left-ear.png);
+    background-image: url(~@/assets/img/loginBear/left-ear.png);
     background-size: 100%;
     background-repeat: no-repeat;
     background-position: center;
@@ -414,7 +422,7 @@ export default {
   }
 
   .right-ear {
-    background-image: url(../../assets/img/loginBear/right-ear.png);
+    background-image: url(~@/assets/img/loginBear/right-ear.png);
     background-size: 100%;
     background-repeat: no-repeat;
     background-position: center;
@@ -426,7 +434,7 @@ export default {
   }
 
   .left-eye {
-    background-image: url(../../assets/img/loginBear/left-eye.png);
+    background-image: url(~@/assets/img/loginBear/left-eye.png);
     background-size: 100%;
     background-repeat: no-repeat;
     background-position: center;
@@ -438,7 +446,7 @@ export default {
   }
 
   .right-eye {
-    background-image: url(../../assets/img/loginBear/right-eye.png);
+    background-image: url(~@/assets/img/loginBear/right-eye.png);
     background-size: 100%;
     background-repeat: no-repeat;
     background-position: center;
@@ -450,7 +458,7 @@ export default {
   }
 
   .face {
-    background-image: url(../../assets/img/loginBear/muzzle.png);
+    background-image: url(~@/assets/img/loginBear/muzzle.png);
     background-size: 100%;
     background-repeat: no-repeat;
     background-position: center;
@@ -462,7 +470,7 @@ export default {
   }
 
   .skin {
-    background-image: url(../../assets/img/loginBear/skin.png);
+    background-image: url(~@/assets/img/loginBear/skin.png);
     background-size: 100%;
     background-repeat: no-repeat;
     background-position: center;
@@ -474,7 +482,7 @@ export default {
   }
 
   .nose {
-    background-image: url(../../assets/img/loginBear/nose.png);
+    background-image: url(~@/assets/img/loginBear/nose.png);
     background-size: 100%;
     background-repeat: no-repeat;
     background-position: center;
@@ -486,7 +494,7 @@ export default {
   }
 
   .mouth {
-    background-image: url(../../assets/img/loginBear/mouth-smile.png);
+    background-image: url(~@/assets/img/loginBear/mouth-smile.png);
     background-size: 100%;
     background-repeat: no-repeat;
     background-position: center;
@@ -498,7 +506,7 @@ export default {
   }
 
   .left-arm {
-    background-image: url(../../assets/img/loginBear/left-arm.png);
+    background-image: url(~@/assets/img/loginBear/left-arm.png);
     background-size: 100%;
     background-repeat: no-repeat;
     background-position: center;
@@ -512,7 +520,7 @@ export default {
   }
 
   .right-arm {
-    background-image: url(../../assets/img/loginBear/right-arm.png);
+    background-image: url(~@/assets/img/loginBear/right-arm.png);
     background-size: 100%;
     background-repeat: no-repeat;
     background-position: center;
@@ -528,7 +536,7 @@ export default {
 
 .password-animate {
   .mouth.show {
-    background-image: url(../../assets/img/loginBear/mouth-circle.png);
+    background-image: url(~@/assets/img/loginBear/mouth-circle.png);
   }
 
   .left-arm.show {
@@ -555,11 +563,11 @@ export default {
   }
 
   .left-eye.doe {
-    background-image: url(../../assets/img/loginBear/left-eye-doe.png);
+    background-image: url(~@/assets/img/loginBear/left-eye-doe.png);
   }
 
   .right-eye.doe {
-    background-image: url(../../assets/img/loginBear/right-eye-doe.png);
+    background-image: url(~@/assets/img/loginBear/right-eye-doe.png);
   }
 
   .right-eye {
@@ -581,11 +589,11 @@ export default {
 
   .mouth {
     left: 1.5em;
-    background-image: url(../../assets/img/loginBear/mouth-half.png);
+    background-image: url(~@/assets/img/loginBear/mouth-half.png);
   }
 
   .mouth.doe {
-    background-image: url(../../assets/img/loginBear/mouth-open.png);
+    background-image: url(~@/assets/img/loginBear/mouth-open.png);
   }
 }
 </style>
