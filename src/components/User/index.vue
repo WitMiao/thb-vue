@@ -1,14 +1,14 @@
 <template>
   <v-menu bottom min-width="200px" rounded offset-y>
     <template v-slot:activator="{ on }">
-      <v-btn icon x-large class="d-none d-lg-flex" v-if="!isUserLogin" @click="openLoginDialog">
+      <v-btn icon x-large  class="d-none d-lg-flex" v-if="!isUserLogin" @click="openLoginDialog()">
         <v-avatar color="brown" size="48">
-          <img src="@/assets/img/user/person-icon.png" alt="congcong" />
+          <img :src="headImg" alt="congcong" />
         </v-avatar>
       </v-btn>
       <v-btn icon x-large v-on="on" class="d-none d-lg-flex" v-else>
         <v-avatar color="brown" size="48">
-          <img src="@/assets/img/user/person-icon.png" alt="congcong" />
+          <img :src="headImg" alt="congcong" />
         </v-avatar>
       </v-btn>
     </template>
@@ -16,7 +16,7 @@
       <v-list-item-content class="justify-center">
         <div class="mx-auto text-center">
           <v-avatar color="brown">
-            <img src="@/assets/img/user/person-icon.png" alt="congcong" />
+            <img :src="headImg" alt="congcong" />
           </v-avatar>
           <h3>asd</h3>
           <p class="text-caption mt-1">
@@ -35,7 +35,7 @@
             </v-btn>
           </div>
           <v-divider class="my-3"></v-divider>
-          <v-btn depressed rounded text>
+          <v-btn depressed rounded text @click="toLogout()">
             退出登录
           </v-btn>
         </div>
@@ -46,8 +46,14 @@
 
 <script>
 import { mapState } from 'vuex';
+import { logout } from '@/api';
 export default {
   name: 'User',
+  data() {
+    return {
+      headImg:require('@/assets/img/user/person-icon.png')
+    }
+  },
   computed: {
     ...mapState({
       isUserLogin: (state) => state.header.isUserLogin,
@@ -56,6 +62,10 @@ export default {
   methods: {
     openLoginDialog() {
       this.$store.commit('OPENLOGINDIALOG');
+    },
+    async toLogout() {
+      await logout();
+      this.$store.commit('USERLOGOUT');
     },
   },
 };

@@ -1,7 +1,7 @@
 <template>
-  <v-dialog v-model="mLoginDialog" persistent transition="dialog-top-transition" width="440">
+  <v-dialog v-model="mLoginDialog" persistent transition="dialog-top-transition" width="440" v-if="!isUserLogin">
     <template v-slot:activator="{ on, attrs }">
-      <div class="d-flex align-center" v-if="!isUserLogin">
+      <div class="d-flex align-center">
         <v-btn text rounded class="text-subtitle-1" v-bind="attrs" v-on="on" color="white">登录</v-btn>
         <div class="d-none d-lg-flex align-center">
           <span class="white--text pt-1">/</span>

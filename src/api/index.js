@@ -36,3 +36,14 @@ export const register = (username, userpwd, nickname) => {
     },
   });
 };
+
+/**
+ * 用户登出
+ * @returns
+ */
+export const logout = () => {
+  return request({
+    url: '/logout',
+    method: 'get',
+  });
+};
