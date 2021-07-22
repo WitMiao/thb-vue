@@ -43,7 +43,7 @@ export default {
     }),
     mLoginDialog: {
       set(value) {
-        this.$store.commit('SETLOGINDIALOG', value);
+        this.$store.commit('SET_LOGIN_DIALOG', value);
       },
       get() {
         return this.loginDialog;
@@ -51,7 +51,7 @@ export default {
     },
     mRegisterDialog: {
       set(value) {
-        this.$store.commit('SETREGISTERDIALOG', value);
+        this.$store.commit('SET_REGISTER_DIALOG', value);
       },
       get() {
         return this.registerDialog;

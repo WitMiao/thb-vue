@@ -256,15 +256,15 @@ export default {
     },
     closeLoginDialog() {
       this.initFormVal();
-      this.$store.commit('CLOSELOGINDIALOG');
+      this.$store.commit('CLOSE_LOGIN_DIALOG');
     },
     closeRegisterDialog() {
       this.initFormVal();
-      this.$store.commit('CLOSEREGISTERDIALOG');
+      this.$store.commit('CLOSE_REGISTER_DIALOG');
     },
     openRegisterDialog() {
       this.initFormVal();
-      this.$store.commit('OPENREGISTERDIALOG');
+      this.$store.commit('OPEN__REGISTER_DIALOG');
     },
     closeAllDialog() {
       this.initFormVal();
@@ -331,7 +331,7 @@ export default {
         switch (status) {
           case 'success':
             if (!this.registerDialog) {
-              this.$store.commit('USERLOGIN');
+              this.$store.commit('USER_LOGIN');
               this.closeAllDialog();
             } else {
               this.closeRegisterDialog();

@@ -6,52 +6,52 @@ const state = {
 };
 
 const mutations = {
-  OPENLOGINDIALOG(state) {
+  OPEN_LOGIN_DIALOG(state) {
     state.loginDialog = true;
   },
-  CLOSELOGINDIALOG(state) {
+  CLOSE_LOGIN_DIALOG(state) {
     state.loginDialog = false;
   },
-  SETLOGINDIALOG(state, value) {
+  SET_LOGIN_DIALOG(state, value) {
     state.loginDialog = value;
   },
-  OPENREGISTERDIALOG(state) {
+  OPEN__REGISTER_DIALOG(state) {
     state.registerDialog = true;
   },
-  CLOSEREGISTERDIALOG(state) {
+  CLOSE_REGISTER_DIALOG(state) {
     state.registerDialog = false;
   },
-  SETREGISTERIALOG(state, value) {
+  SET_REGISTER_DIALOG(state, value) {
     state.registerDialog = value;
   },
-  STARTLOADING() {
+  START_LOADING() {
     state.isLoading = true;
   },
-  FINISHLOADING() {
+  FINISH_LOADING() {
     state.isLoading = false;
   },
-  SETISLOADING(state, value) {
+  SET_LOADING(state, value) {
     state.isLoading = value;
   },
-  USERLOGIN(){
+  USER_LOGIN(){
     state.isUserLogin = true;
   },
-  USERLOGOUT(){
+  USER_LOGOUT(){
     state.isUserLogin = false;
   },
-  SETISUSERLOGIN(state, value) {
+  SET_USER_LOGIN(state, value) {
     state.isUserLogin = value;
   },
 };
 
 const actions = {
   firstOpenRegisterDialog(content) {
-    content.commit('OPENLOGINDIALOG');
-    content.commit('OPENREGISTERDIALOG');
+    content.commit('OPEN_LOGIN_DIALOG');
+    content.commit('OPEN__REGISTER_DIALOG');
   },
   closeAllDialog(content) {
-    content.commit('CLOSEREGISTERDIALOG');
-    content.commit('CLOSELOGINDIALOG');
+    content.commit('CLOSE_REGISTER_DIALOG');
+    content.commit('CLOSE_LOGIN_DIALOG');
   },
 };
 

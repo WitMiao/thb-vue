@@ -61,11 +61,11 @@ export default {
   },
   methods: {
     openLoginDialog() {
-      this.$store.commit('OPENLOGINDIALOG');
+      this.$store.commit('OPEN_LOGIN_DIALOG');
     },
     async toLogout() {
       await logout();
-      this.$store.commit('USERLOGOUT');
+      this.$store.commit('USER_LOGOUT');
     },
   },
 };
