@@ -10,6 +10,12 @@ service.interceptors.request.use(
   (config) => {
     // 在发送请求之前做些什么
     store.commit('START_LOADING');
+
+    //将登录成功的token添加到请求头
+    const token = store.state.user.token;
+    if (token) {
+      config.headers.token = token;
+    }
     return config;
   },
   () => {}

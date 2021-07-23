@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import header from './header.js'
+import header from './header';
+import user from './user';
 Vue.use(Vuex);
 
 const state = {};
@@ -18,5 +19,6 @@ export default new Vuex.Store({
   getters,
   modules: {
     header,
+    user,
   },
 });

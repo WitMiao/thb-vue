@@ -3,11 +3,10 @@ import request from './ajax';
 
 /**
  * 用户登录接口
- * @param {string} username 用户名
- * @param {string} userpwd 密码
- * @return {Object} {state,msg}
+ * @param {{string, string}} {username, userpwd} 用户名,密码
+ * @return {Object} {state, msg}
  */
-export const signIn = (username, userpwd) => {
+export const reqSignIn = ({ username, userpwd }) => {
   return request({
     url: '/signin',
     method: 'post',
@@ -20,12 +19,10 @@ export const signIn = (username, userpwd) => {
 
 /**
  * 用户注册接口
- * @param {string} username 用户名
- * @param {string} userpwd 密码
- * @param {string} nickname 昵称
- * @return {Object} {state,msg}
+ * @param {{string, string, string}} {username, userpwd, nickname} 用户名,密码,昵称
+ * @return {Object} {state, msg}
  */
-export const register = (username, userpwd, nickname) => {
+export const reqRegister = ({ username, userpwd, nickname }) => {
   return request({
     url: '/register',
     method: 'post',
@@ -38,12 +35,23 @@ export const register = (username, userpwd, nickname) => {
 };
 
 /**
- * 用户登出
+ * 用户登出接口
  * @returns
  */
-export const logout = () => {
+export const reqLogout = () => {
   return request({
     url: '/logout',
+    method: 'get',
+  });
+};
+
+/**
+ * 获取用户信息接口
+ * @return {Object} {state, userinfo}
+ */
+export const reqGetUserInfo = () => {
+  return request({
+    url: '/users/getUserInfo',
     method: 'get',
   });
 };

@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="mLoginDialog" persistent transition="dialog-top-transition" width="440" v-if="!isUserLogin">
+  <v-dialog v-model="mLoginDialog" persistent transition="dialog-top-transition" width="440" v-if="!token">
     <template v-slot:activator="{ on, attrs }">
       <div class="d-flex align-center">
         <v-btn text rounded class="text-subtitle-1" v-bind="attrs" v-on="on" color="white">登录</v-btn>
@@ -39,7 +39,7 @@ export default {
     ...mapState({
       loginDialog: (state) => state.header.loginDialog,
       registerDialog: (state) => state.header.registerDialog,
-      isUserLogin: (state) => state.header.isUserLogin,
+      token: (state) => state.user.token,
     }),
     mLoginDialog: {
       set(value) {

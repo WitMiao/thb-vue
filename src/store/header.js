@@ -2,7 +2,6 @@ const state = {
   loginDialog: false,
   registerDialog: false,
   isLoading: false,
-  isUserLogin: false,
 };
 
 const mutations = {
@@ -33,25 +32,16 @@ const mutations = {
   SET_LOADING(state, value) {
     state.isLoading = value;
   },
-  USER_LOGIN(){
-    state.isUserLogin = true;
-  },
-  USER_LOGOUT(){
-    state.isUserLogin = false;
-  },
-  SET_USER_LOGIN(state, value) {
-    state.isUserLogin = value;
-  },
 };
 
 const actions = {
-  firstOpenRegisterDialog(content) {
-    content.commit('OPEN_LOGIN_DIALOG');
-    content.commit('OPEN__REGISTER_DIALOG');
+  firstOpenRegisterDialog({commit}) {
+    commit('OPEN_LOGIN_DIALOG');
+    commit('OPEN__REGISTER_DIALOG');
   },
-  closeAllDialog(content) {
-    content.commit('CLOSE_REGISTER_DIALOG');
-    content.commit('CLOSE_LOGIN_DIALOG');
+  closeAllDialog({commit}) {
+    commit('CLOSE_REGISTER_DIALOG');
+    commit('CLOSE_LOGIN_DIALOG');
   },
 };
 

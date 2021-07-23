@@ -1,7 +1,7 @@
 <template>
   <v-menu bottom min-width="200px" rounded offset-y>
     <template v-slot:activator="{ on }">
-      <v-btn icon x-large  class="d-none d-lg-flex" v-if="!isUserLogin" @click="openLoginDialog()">
+      <v-btn icon x-large class="d-none d-lg-flex" v-if="!token" @click="openLoginDialog()">
         <v-avatar color="brown" size="48">
           <img :src="headImg" alt="congcong" />
         </v-avatar>
@@ -46,17 +46,16 @@
 
 <script>
 import { mapState } from 'vuex';
-import { logout } from '@/api';
 export default {
   name: 'User',
   data() {
     return {
-      headImg:require('@/assets/img/user/person-icon.png')
-    }
+      headImg: require('@/assets/img/user/person-icon.png'),
+    };
   },
   computed: {
     ...mapState({
-      isUserLogin: (state) => state.header.isUserLogin,
+      token: (state) => state.user.token,
     }),
   },
   methods: {
@@ -64,8 +63,7 @@ export default {
       this.$store.commit('OPEN_LOGIN_DIALOG');
     },
     async toLogout() {
-      await logout();
-      this.$store.commit('USER_LOGOUT');
+      const result = await this.$store.dispatch('userLogout');
     },
   },
 };

@@ -74,7 +74,7 @@
 
 <script>
 import { mapState } from 'vuex';
-import { signIn, register } from '@/api';
+import { reqRegister } from '@/api';
 import { required, minLength, maxLength, alphaNum } from 'vuelidate/lib/validators';
 export default {
   name: 'LoginContent',
@@ -314,24 +314,23 @@ export default {
             username: { val: uname },
             password: { val: pwd },
           } = this.loginForm;
-          result = await signIn(uname, pwd);
+          result = await this.$store.dispatch('userLogin', { username: uname, userpwd: pwd });
         } else {
           const {
             rUsername: { val: uname },
             rPassword: { val: pwd },
             nickname: { val: nname },
           } = this.registerForm;
-          result = await register(uname, pwd, nname);
+          result = await reqRegister({ username: uname, userpwd: pwd, nickname: nname });
         }
 
         this.loading = false;
         const { status, msg } = result;
-        // console.log(result);
+        console.log(result);
         const errorStr = this[this.formName].errorStr;
         switch (status) {
           case 'success':
             if (!this.registerDialog) {
-              this.$store.commit('USER_LOGIN');
               this.closeAllDialog();
             } else {
               this.closeRegisterDialog();
