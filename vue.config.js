@@ -2,9 +2,10 @@ module.exports = {
     //禁用eslint
     lintOnSave: false,
     devServer: {
+        port:8686,
         proxy: {
             "/api": {
-                target: "http://localhost:80",
+                target: "http://localhost:2333",
                 pathRewrite: {"^/api": ""}
             }
         }
