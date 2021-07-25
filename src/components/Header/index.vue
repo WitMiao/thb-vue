@@ -5,7 +5,7 @@
     </v-app-bar-nav-icon>
     <v-row>
       <v-col class="d-flex justify-space-around">
-        <router-link to="/">
+        <router-link to="/home">
           <v-img
             alt="THB Logo"
             class="shrink mr-10 mt-5"
@@ -13,7 +13,6 @@
             src="@/assets/img/logo/logo1.png"
             transition="scale-transition"
             width="150"
-            to="/"
           />
         </router-link>
       </v-col>
@@ -62,11 +61,11 @@ export default {
   },
   data() {
     return {
-      activeIndex: '/',
+      activeIndex: '/home',
       isRouter: true,
       selectedItem: 0,
       barTitle: [
-        { text: '首页', link: '/' },
+        { text: '首页', link: '/home' },
         { text: '创作平台', link: '/creation' },
         { text: 'Python编辑器', link: '/pythonide' },
         { text: '作品展示', link: '/works' },

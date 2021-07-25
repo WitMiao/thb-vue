@@ -3,7 +3,7 @@
     <v-card-title class="pa-0">
       <v-col></v-col>
       <v-col class="d-flex justify-center">
-        <v-img alt="THB Logo" class="shrink" contain src="@/assets/img/logo/logo2.png" width="120" />
+        <v-img alt="THB Logo" class="shrink" contain src="@/assets/img/logo/logo2.png" width="120"/>
       </v-col>
       <v-col class="d-flex justify-end align-self-start pa-1">
         <v-btn icon>
@@ -36,23 +36,23 @@
 
     <v-form ref="loginForm">
       <v-text-field
-        v-for="(item, name, i) in showMod.form"
-        :key="i"
-        :label="item.label"
-        :append-icon="item.isText ? '' : item.pwdShow ? 'mdi-eye' : 'mdi-eye-off'"
-        :type="item.isText || item.pwdShow ? 'text' : 'password'"
-        :placeholder="item.placeholder"
-        required
-        filled
-        background-color="white"
-        class="rounded ma-0 py-0 px-15"
-        :error-messages="inputErrors(name, item)"
-        @click:append="item.pwdShow = !item.pwdShow"
-        @input="vInput(name)"
-        @blur="vBlur(name, item)"
-        @focus="item.isFocus = true"
-        v-model="item.val"
-        @keyup.enter="submit()"
+          v-for="(item, name, i) in showMod.form"
+          :key="i"
+          :label="item.label"
+          :append-icon="item.isText ? '' : item.pwdShow ? 'mdi-eye' : 'mdi-eye-off'"
+          :type="item.isText || item.pwdShow ? 'text' : 'password'"
+          :placeholder="item.placeholder"
+          required
+          filled
+          background-color="white"
+          class="rounded ma-0 py-0 px-15"
+          :error-messages="inputErrors(name, item)"
+          @click:append="item.pwdShow = !item.pwdShow"
+          @input="vInput(name)"
+          @blur="vBlur(name, item)"
+          @focus="item.isFocus = true"
+          v-model="item.val"
+          @keyup.enter="submit()"
       ></v-text-field>
     </v-form>
     <v-card-actions class="justify-center pa-0 red--text" v-show="showMod.errorStr.isShow">
@@ -73,9 +73,10 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
-import { reqRegister } from '@/api';
-import { required, minLength, maxLength, alphaNum } from 'vuelidate/lib/validators';
+import {mapState} from 'vuex';
+import {reqRegister} from '@/api';
+import {required, minLength, maxLength, alphaNum} from 'vuelidate/lib/validators';
+
 export default {
   name: 'LoginContent',
   data() {
@@ -109,8 +110,8 @@ export default {
       registerMod: {
         title: '注册账号',
         form: {
-          rUsername: { label: '账号', placeholder: '(6-20位，字母+数字组合)', isText: true, val: '' },
-          nickname: { label: '昵称', placeholder: '(1-20位，可输入中文、字母或者数字)', isText: true, val: '' },
+          rUsername: {label: '账号', placeholder: '(6-20位，字母+数字组合)', isText: true, val: ''},
+          nickname: {label: '昵称', placeholder: '(1-20位，可输入中文、字母或者数字)', isText: true, val: ''},
           rPassword: {
             label: '密码',
             placeholder: '(6-20位，至少包含数字跟字母)',
@@ -231,7 +232,7 @@ export default {
       return this.loginForm.username.val.length >= 6;
     },
     leftLength() {
-      const { length } = this.loginForm.username.val;
+      const {length} = this.loginForm.username.val;
       const leftLength = parseFloat((0.8 / 20) * length);
       return leftLength > 1 ? 1 : leftLength;
     },
@@ -289,17 +290,17 @@ export default {
       const errors = [];
       const inputVal = this.$v[this.formName].form[name].val;
       if (!inputVal.$dirty) return errors;
-      inputVal.hasOwnProperty('required') && !inputVal.required && errors.push(item.label + '为必填项！');
-      inputVal.hasOwnProperty('alphaNum') && !inputVal.alphaNum && errors.push(item.label + '只能包含字母和数字！');
-      inputVal.hasOwnProperty('minLength') && !inputVal.minLength && errors.push(item.label + '至少六个字符！');
-      inputVal.hasOwnProperty('maxLength') && !inputVal.maxLength && errors.push(item.label + '最多二十个字符！');
-      inputVal.hasOwnProperty('sameAsPassword') && !inputVal.sameAsPassword && errors.push('两次密码不一致！');
-      inputVal.hasOwnProperty('isNickname') &&
-        !inputVal.isNickname &&
-        errors.push(item.label + '只能包含中文、字母和数字！');
-      inputVal.hasOwnProperty('isPassword') &&
-        !inputVal.isPassword &&
-        errors.push(item.label + '至少包含数字跟字母，可以有常用字符！');
+      Object.prototype.hasOwnProperty.call(inputVal, 'required') && !inputVal.required && errors.push(item.label + '为必填项！');
+      Object.prototype.hasOwnProperty.call(inputVal, 'alphaNum') && !inputVal.alphaNum && errors.push(item.label + '只能包含字母和数字！');
+      Object.prototype.hasOwnProperty.call(inputVal, 'minLength') && !inputVal.minLength && errors.push(item.label + '至少六个字符！');
+      Object.prototype.hasOwnProperty.call(inputVal, 'maxLength') && !inputVal.maxLength && errors.push(item.label + '最多二十个字符！');
+      Object.prototype.hasOwnProperty.call(inputVal, 'sameAsPassword') && !inputVal.sameAsPassword && errors.push('两次密码不一致！');
+      Object.prototype.hasOwnProperty.call(inputVal, 'isNickname') &&
+      !inputVal.isNickname &&
+      errors.push(item.label + '只能包含中文、字母和数字！');
+      Object.prototype.hasOwnProperty.call(inputVal, 'isPassword') &&
+      !inputVal.isPassword &&
+      errors.push(item.label + '至少包含数字跟字母，可以有常用字符！');
       return errors;
     },
 
@@ -311,21 +312,21 @@ export default {
         let result = {};
         if (!this.registerDialog) {
           const {
-            username: { val: uname },
-            password: { val: pwd },
+            username: {val: uname},
+            password: {val: pwd},
           } = this.loginForm;
-          result = await this.$store.dispatch('userLogin', { username: uname, userpwd: pwd });
+          result = await this.$store.dispatch('userLogin', {username: uname, userpwd: pwd});
         } else {
           const {
-            rUsername: { val: uname },
-            rPassword: { val: pwd },
-            nickname: { val: nname },
+            rUsername: {val: uname},
+            rPassword: {val: pwd},
+            nickname: {val: nname},
           } = this.registerForm;
-          result = await reqRegister({ username: uname, userpwd: pwd, nickname: nname });
+          result = await reqRegister({username: uname, userpwd: pwd, nickname: nname});
         }
 
         this.loading = false;
-        const { status, msg } = result;
+        const {status, msg} = result;
         console.log(result);
         const errorStr = this[this.formName].errorStr;
         switch (status) {

@@ -30,7 +30,7 @@
             transition="fade-transition"
           >
             <div class="mt-10">
-              <v-btn color="warning" x-large class="text-h6 font-weight-bold" depressed>
+              <v-btn color="warning" x-large class="text-h6 font-weight-bold" depressed :to="carousel.btnUrl">
                 {{ carousel.btnText }}
               </v-btn>
             </div>
@@ -205,6 +205,7 @@ export default {
           text1: '创作故事，游戏和动画',
           text2: '与世界上的其他人分享',
           btnText: '开始创作',
+          btnUrl:'/creation',
         },
         {
           src: require('@/assets/img/carousel/c2.png'),
@@ -212,6 +213,7 @@ export default {
           text1: '创作故事，游戏和动画2',
           text2: '与世界上的其他人分享2',
           btnText: '开始创作2',
+          btnUrl:'/creation',
         },
       ],
       thComment: [
