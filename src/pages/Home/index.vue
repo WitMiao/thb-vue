@@ -194,6 +194,8 @@
 </template>
 
 <script>
+import {reqHomeInfo} from "@/api/home";
+
 export default {
   name: 'Home',
   data() {
@@ -254,8 +256,15 @@ export default {
     },
     closeVideo(){
       this.$refs.thbVideo.pause();
+    },
+    async getHomeInfo(){
+      const result = await reqHomeInfo();
+      console.log(result);
     }
   },
+  mounted() {
+    this.getHomeInfo();
+  }
 };
 </script>
 
