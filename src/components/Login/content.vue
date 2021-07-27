@@ -74,7 +74,7 @@
 
 <script>
 import {mapState} from 'vuex';
-import {reqRegister} from '@/api';
+import {reqRegister} from '@/api/user';
 import {required, minLength, maxLength, alphaNum} from 'vuelidate/lib/validators';
 
 export default {

@@ -1,5 +1,5 @@
 //接口请求函数
-import request from './ajax';
+import request from '@/utils/request';
 
 /**
  * 用户登录接口

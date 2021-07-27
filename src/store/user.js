@@ -1,4 +1,4 @@
-import { reqGetUserInfo, reqSignIn, reqLogout } from '@/api';
+import { reqGetUserInfo, reqSignIn, reqLogout } from '@/api/user';
 
 const state = {
   token: localStorage.getItem('TOKEN_KEY'),
