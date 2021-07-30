@@ -327,7 +327,7 @@ export default {
 
         this.loading = false;
         const {status, msg} = result;
-        console.log(result);
+        // console.log(result);
         const errorStr = this[this.formName].errorStr;
         switch (status) {
           case 'success':
