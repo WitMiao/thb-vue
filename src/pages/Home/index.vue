@@ -144,26 +144,35 @@
         </v-lazy>
       </div>
     </v-parallax>
-    <div class="miao-container">
-      <div class="pt-16 d-flex flex-column align-center">
-        <span class="home-page-title">作品展示</span>
-        <v-img class="my-5" max-height="13" max-width="293" src="@/assets/img/home/title-line.png"></v-img>
-        <span class="home-page-text">这里是特慧编老师和学生创作的优秀作品~</span>
+    <template v-if="homeInfo.showlist">
+      <div class="miao-container">
+        <div class="pt-16 d-flex flex-column align-center">
+          <span class="home-page-title">作品展示</span>
+          <v-img class="my-5" max-height="13" max-width="293" src="@/assets/img/home/title-line.png"></v-img>
+          <span class="home-page-text">这里是特慧编老师和学生创作的优秀作品~</span>
+        </div>
       </div>
-    </div>
-    <v-sheet class="mx-auto mt-10" max-width="1300">
-      <v-slide-group v-model="sheet" class="pa-4" center-active show-arrows>
-        <v-slide-item v-for="n in 15" :key="n" v-slot="{ active, toggle }">
-          <v-card :color="active ? 'primary' : 'grey lighten-1'" class="ma-4" height="270" width="360" @click="toggle">
-            <v-row class="fill-height" align="center" justify="center">
-              <v-scale-transition>
-                <v-icon v-if="active" color="white" size="48" v-text="'mdi-close-circle-outline'"></v-icon>
-              </v-scale-transition>
-            </v-row>
-          </v-card>
-        </v-slide-item>
-      </v-slide-group>
-    </v-sheet>
+      <v-sheet class="mx-auto mt-10" max-width="1300">
+        <v-slide-group v-model="sheet" class="pa-4" center-active show-arrows>
+          <v-slide-item v-for="(work, i) in homeInfo.showlist" :key="i" v-slot="{ active, toggle }">
+            <v-card
+              class="ma-4"
+              height="270"
+              width="360"
+              @click="toggle"
+              :img="'/apiassets/released/covers/' + work.covers"
+            >
+              <v-row class="fill-height" align="center" justify="center" >
+                <v-scale-transition>
+                  <v-icon v-if="active" color="white" size="48" v-text="'mdi-close-circle-outline'"></v-icon>
+                </v-scale-transition>
+              </v-row>
+            </v-card>
+          </v-slide-item>
+        </v-slide-group>
+      </v-sheet>
+    </template>
+
     <div class="home-page-bg bg3 mt-12">
       <v-carousel cycle hide-delimiters :show-arrows="false" class="d-flex justify-center">
         <v-carousel-item
