@@ -1,13 +1,13 @@
 <template>
   <div class="home-page">
-    <v-carousel hide-delimiters show-arrows-on-hover class="home-page-carousel">
+    <v-carousel hide-delimiters show-arrows-on-hover class="home-page-carousel" v-if="homeInfo.banners">
       <v-carousel-item
-        v-for="(carousel, i) in carouselPics"
+        v-for="(carousel, i) in homeInfo.banners"
         :key="i"
-        :src="carousel.src"
+        :src="'/apiassets/img/index/banner/' + carousel.src"
         class="home-page-carousel-item"
       >
-        <v-container class="home-page-carousel-item-container d-flex flex-column" v-if="carousel.isShowText">
+        <v-container class="home-page-carousel-item-container d-flex flex-column" v-if="carousel.firstdetail">
           <v-lazy
             v-model="isActive[0]"
             :options="{
@@ -17,9 +17,9 @@
           >
             <div>
               <div class="my-1">
-                <span class="home-page-carousel-item-container-span h1">{{ carousel.text1 }}</span>
+                <span class="home-page-carousel-item-container-span h1">{{ carousel.firstdetail }}</span>
               </div>
-              <span class="home-page-carousel-item-container-span h2">{{ carousel.text2 }}</span>
+              <span class="home-page-carousel-item-container-span h2">{{ carousel.seconddetail }}</span>
             </div>
           </v-lazy>
           <v-lazy
@@ -29,9 +29,9 @@
             }"
             transition="fade-transition"
           >
-            <div class="mt-10">
-              <v-btn color="warning" x-large class="text-h6 font-weight-bold" depressed :to="carousel.btnUrl">
-                {{ carousel.btnText }}
+            <div class="mt-10" v-if="carousel.url">
+              <v-btn color="warning" x-large class="text-h6 font-weight-bold" depressed :to="carousel.url">
+                {{ carousel.title }}
               </v-btn>
             </div>
           </v-lazy>
@@ -167,25 +167,25 @@
     <div class="home-page-bg bg3 mt-12">
       <v-carousel cycle hide-delimiters :show-arrows="false" class="d-flex justify-center">
         <v-carousel-item
-          v-for="(comment, i) in thComment"
+          v-for="(comment, i) in homeInfo.icomment"
           :key="i"
-          :src="comment.src"
+          src="@/assets/img/carousel/c0.png"
           class=""
           max-width="636"
           max-height="437"
         >
           <v-container
             class="d-flex flex-column justify-center align-center home-page-comment"
-            v-if="comment.isShowText"
+            v-if="comment.content"
             px-12
           >
-              <div class="my-1">
-                <span class="text-h5 white--text">{{ comment.text1 }}</span>
-              </div>
-              <span class="white--text font-weight-bold">{{ comment.text2 }}</span>
-              <div class="my-1">
-                <span class="white--text">{{ comment.text3 }}</span>
-              </div>
+            <div class="my-1">
+              <span class="text-h5 white--text">{{ comment.content }}</span>
+            </div>
+            <span class="white--text font-weight-bold">{{ comment.enname }}</span>
+            <div class="my-1">
+              <span class="white--text">{{ comment.name }}</span>
+            </div>
           </v-container>
         </v-carousel-item>
       </v-carousel>
@@ -194,77 +194,40 @@
 </template>
 
 <script>
-import {reqHomeInfo} from "@/api/home";
+import { reqHomeInfo } from '@/api/home';
+import { mapState } from 'vuex';
 
 export default {
   name: 'Home',
   data() {
     return {
-      carouselPics: [
-        {
-          src: require('@/assets/img/carousel/c1.png'),
-          isShowText: true,
-          text1: '创作故事，游戏和动画',
-          text2: '与世界上的其他人分享',
-          btnText: '开始创作',
-          btnUrl:'/creation',
-        },
-        {
-          src: require('@/assets/img/carousel/c2.png'),
-          isShowText: false,
-          text1: '创作故事，游戏和动画2',
-          text2: '与世界上的其他人分享2',
-          btnText: '开始创作2',
-          btnUrl:'/creation',
-        },
-      ],
-      thComment: [
-        {
-          src: require('@/assets/img/carousel/c0.png'),
-          isShowText: true,
-          text1:
-            '我们为学员提供充足的时间发表自己创作的作品，学习编程知识的同时， 锻炼好自己的口才，为日后将要面对的激烈竞争，储备足够的实力。',
-          text2: 'Kohinur miao',
-          text3: '特慧编助教',
-        },
-        {
-          src: require('@/assets/img/carousel/c0.png'),
-          isShowText: true,
-          text1:
-            '我们的教师来自于一线IT企业，不仅拥有多年IT行业经验，了解行业发展现状，有的还拥有多年海外工作经验，可以更好地带领学员开阔视野，掌握真知。',
-          text2: 'Najnin miao',
-          text3: '特慧编CEO',
-        },
-        {
-          src: require('@/assets/img/carousel/c0.png'),
-          isShowText: true,
-          text1:
-            '信息技术日新月异，人工智能、大数据、物联网、自动驾驶，这些新兴领域 无一不对未来的人才提出了更高的要求。而且随着技术的不断成熟，机器人、自动算法逐步取代人力已经成为不可逆转的趋势。',
-          text2: 'Lora miao',
-          text3: '特慧编讲师',
-        },
-      ],
       videoDialog: false,
       videoSrc: require('@/assets/video/v1.mp4'),
-      isActive: [false, false, false, false, false, false, false, false, false, false],
+      isActive: [false, false, false, false],
       sheet: null,
     };
+  },
+  computed: {
+    ...mapState({
+      homeInfo: (state) => state.home.homeInfo,
+    }),
   },
   methods: {
     openRegisterDialog() {
       this.$store.dispatch('firstOpenRegisterDialog');
     },
-    closeVideo(){
+    closeVideo() {
       this.$refs.thbVideo.pause();
     },
-    async getHomeInfo(){
+    async getHomeInfo() {
       const result = await reqHomeInfo();
       console.log(result);
-    }
+      this.$store.commit('RECEIVE_HOMEINFO', result.homeinfo);
+    },
   },
   mounted() {
     this.getHomeInfo();
-  }
+  },
 };
 </script>
 

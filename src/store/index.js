@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import header from './header';
 import user from './user';
+import home from './home';
 Vue.use(Vuex);
 
 const state = {};
@@ -20,5 +21,6 @@ export default new Vuex.Store({
   modules: {
     header,
     user,
+    home,
   },
 });
