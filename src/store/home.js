@@ -3,7 +3,7 @@ const state = {
 };
 
 const mutations = {
-  RECEIVE_HOMEINFO(state, value) {
+  RECEIVE_HOME_INFO(state, value) {
     state.homeInfo = value;
   },
 };

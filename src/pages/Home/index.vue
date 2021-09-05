@@ -231,7 +231,7 @@ export default {
     async getHomeInfo() {
       const result = await reqHomeInfo();
       console.log(result);
-      this.$store.commit('RECEIVE_HOMEINFO', result.homeinfo);
+      this.$store.commit('RECEIVE_HOME_INFO', result.homeinfo);
     },
   },
   mounted() {
