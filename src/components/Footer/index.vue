@@ -25,7 +25,7 @@
     <div class="footer-copyright">
       <div class="miao-container white--text py-3 align-center text-center">
         <span>Copyright 2021 MIAO. All rights reserved. </span>
-        <a href="http://beian.miit.gov.cn/state/outPortal/loginPortal.action" target="_blank" class="white--text"> 沪ICP备2021025738号</a>
+        <a href="https://beian.miit.gov.cn/" target="_blank" class="white--text"> 沪ICP备2021025738号-1</a>
       </div>
     </div>
   </v-footer>
