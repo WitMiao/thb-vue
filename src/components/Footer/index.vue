@@ -25,7 +25,11 @@
     <div class="footer-copyright">
       <div class="miao-container white--text py-3 align-center text-center">
         <span>Copyright 2021 MIAO. All rights reserved. </span>
-        <a href="https://beian.miit.gov.cn/" target="_blank" class="white--text"> 沪ICP备2021025738号-1</a>
+        <a target="_blank" class="white--text pl-3" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=31011402009485">
+          <img src="https://cdn.jsdelivr.net/gh/WitMiao/blogPic/img/备案图标.png" class="copyright-icon" alt="备案图标.png" />
+          沪公网安备 31011402009485号
+        </a>
+        <a href="https://beian.miit.gov.cn/" target="_blank" class="white--text pl-3"> 沪ICP备2021025738号-1</a>
       </div>
     </div>
   </v-footer>
@@ -51,5 +55,8 @@ export default {
 .footer-copyright{
   width: 100%;
   background-color: orange;
+}
+.copyright-icon{
+  vertical-align: middle;
 }
 </style>
